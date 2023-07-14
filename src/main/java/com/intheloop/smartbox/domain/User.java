@@ -48,8 +48,7 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @Column(name = "last_name", length = 50)
     private String lastName;
 
-    @NotNull
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
     @Email
@@ -57,9 +56,8 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @Column(length = 254, unique = true)
     private String email;
 
-    @NotNull
     @Column(nullable = false)
-    private boolean activated = false;
+    private boolean activated = true;
 
     @Size(min = 2, max = 10)
     @Column(name = "lang_key", length = 10)

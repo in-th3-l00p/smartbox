@@ -93,7 +93,8 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
         ) {
             // return 201 - CREATED on purpose to not reveal information to potential attackers
             // see https://github.com/jhipster/generator-jhipster/issues/21731
-            return ProblemDetailWithCauseBuilder.instance().withStatus(201).build();
+            // nevermind, just return BAD REQUEST
+            return ProblemDetailWithCauseBuilder.instance().withStatus(400).build();
         }
         if (
             ex instanceof com.intheloop.smartbox.service.InvalidPasswordException

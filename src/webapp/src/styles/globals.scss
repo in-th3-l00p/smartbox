@@ -13,3 +13,14 @@ body {
     filter: brightness(0.9);
   }
 }
+
+.dropdown-menu {
+  background-color: $primary-white !important;
+  a {
+    color: $primary-black !important;
+    &:hover {
+      background-color: $primary-red !important;
+      color: $secondary-white !important;
+    }
+  }
+}

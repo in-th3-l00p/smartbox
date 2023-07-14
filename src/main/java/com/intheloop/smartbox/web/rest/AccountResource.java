@@ -7,16 +7,18 @@ import com.intheloop.smartbox.service.MailService;
 import com.intheloop.smartbox.service.UserService;
 import com.intheloop.smartbox.service.dto.AdminUserDTO;
 import com.intheloop.smartbox.service.dto.PasswordChangeDTO;
-import com.intheloop.smartbox.web.rest.errors.*;
-import com.intheloop.smartbox.web.rest.vm.KeyAndPasswordVM;
+import com.intheloop.smartbox.web.rest.errors.EmailAlreadyUsedException;
+import com.intheloop.smartbox.web.rest.errors.InvalidPasswordException;
+import com.intheloop.smartbox.web.rest.errors.LoginAlreadyUsedException;
 import com.intheloop.smartbox.web.rest.vm.ManagedUserVM;
 import jakarta.validation.Valid;
-import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 /**
  * REST controller for managing the current user's account.
@@ -85,7 +87,8 @@ public class AccountResource {
      * @throws RuntimeException {@code 500 (Internal Server Error)} if the user couldn't be returned.
      */
     @GetMapping("/account")
-    public AdminUserDTO getAccount() {
+    public AdminUserDTO getAccount() throws InterruptedException {
+        Thread.sleep(10);
         return userService
             .getUserWithAuthorities()
             .map(AdminUserDTO::new)
@@ -109,15 +112,14 @@ public class AccountResource {
             throw new EmailAlreadyUsedException();
         }
         Optional<User> user = userRepository.findOneByLogin(userLogin);
-        if (!user.isPresent()) {
+        if (user.isEmpty()) {
             throw new AccountResourceException("User could not be found");
         }
         userService.updateUser(
             userDTO.getFirstName(),
             userDTO.getLastName(),
             userDTO.getEmail(),
-            userDTO.getLangKey(),
-            userDTO.getImageUrl()
+            userDTO.getAddress()
         );
     }
 
