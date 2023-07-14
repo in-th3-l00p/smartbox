@@ -1,0 +1,14 @@
+@import "constants.scss";
+
+.navbar {
+  background-color: $primary-red !important;
+  a {
+    color: white !important;
+  }
+}
+
+.mainContainer {
+  min-height: 100vh;
+  background-color: $secondary-white;
+  padding: 0 0.5rem;
+}
