@@ -14,6 +14,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.intheloop.smartbox.web.rest.errors.UserNotFound;
+import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -294,5 +296,11 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<String> getAuthorities() {
         return authorityRepository.findAll().stream().map(Authority::getName).toList();
+    }
+
+    public User get(Long id) {
+        return userRepository
+            .findById(id)
+            .orElseThrow(UserNotFound::new);
     }
 }

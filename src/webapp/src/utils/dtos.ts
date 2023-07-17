@@ -1,3 +1,9 @@
+export interface Card {
+  id: number;
+  userId: string;
+  device: Device;
+}
+
 export interface User {
   id: number;
   login: string;
@@ -6,6 +12,8 @@ export interface User {
   address: string;
   email: string;
   authorities: string[];
+  user: User;
+  card: Card | null;
 }
 
 export interface Slot {
