@@ -20,16 +20,13 @@ public class Device {
     private String location;
 
     @OneToMany(
-        cascade = CascadeType.ALL,
+        cascade = CascadeType.REMOVE,
         mappedBy = "device",
         fetch = FetchType.EAGER
     )
     private Set<Slot> slots = new HashSet<>();
 
-    @OneToMany(
-        cascade = CascadeType.ALL,
-        mappedBy = "device"
-    )
+    @OneToMany(mappedBy = "device")
     private Set<Card> cards = new HashSet<>();
 
     public Device() {

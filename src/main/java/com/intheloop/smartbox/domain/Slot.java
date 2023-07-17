@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 
 @Entity
 @Table
-public class Slot extends AbstractAuditingEntity<Long> {
+public class Slot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "empty", nullable = false)
+    @Column(name = "is_empty", nullable = false)
     private boolean empty = true;
 
     @Column(name = "capacity", nullable = false)
@@ -22,7 +22,6 @@ public class Slot extends AbstractAuditingEntity<Long> {
     public Slot() {
     }
 
-    @Override
     public Long getId() {
         return id;
     }

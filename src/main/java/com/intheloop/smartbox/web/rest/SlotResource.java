@@ -22,19 +22,19 @@ public class SlotResource {
     /**
      * {@code POST /api/admin/slot/{deviceId}} : Create a new slot
      * @param deviceId : device id
-     * @param slotDTO : slot DTO
+     * @param capacity : slot's capacity
      * @throws DeviceNameAlreadyUsedException if the given name is already used, with status {@code 404 (NOT FOUND)}
      */
     @PostMapping(
         path = "/{deviceId}",
         consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public void createSlot(
+    public SlotDTO createSlot(
         @PathVariable Long deviceId,
-        @RequestBody SlotDTO slotDTO
+        @RequestParam Double capacity
     ) {
         var device = deviceService.get(deviceId);
-        slotService.create(device, slotDTO.getCapacity());
+        return new SlotDTO(slotService.create(device, capacity));
     }
 
     /**

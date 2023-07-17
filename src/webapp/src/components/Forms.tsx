@@ -15,7 +15,6 @@ export const LabeledInput: React.FC<LabeledInputProps> = ({
   label,
   type,
   placeholder,
-  readOnly=false,
   className=""
 }) => {
   return (
@@ -34,7 +33,7 @@ export const LabeledInput: React.FC<LabeledInputProps> = ({
 
 interface StatefulLabeledInputProps extends LabeledInputProps {
   value: string;
-  setValue: (value: string) => void;
+  setValue: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const StatefulLabeledInput: React.FC<StatefulLabeledInputProps> = ({
@@ -59,7 +58,7 @@ export const StatefulLabeledInput: React.FC<StatefulLabeledInputProps> = ({
         value={value}
         onChange={(e) => {
           if (setValue !== undefined)
-            setValue(e.target.value || "");
+            setValue(e.target.value);
         }}
         readOnly={readOnly}
       />

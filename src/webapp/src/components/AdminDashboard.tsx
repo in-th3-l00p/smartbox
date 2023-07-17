@@ -7,6 +7,7 @@ import {getUsers} from "../api/admin";
 import style from "./../styles/Dashboard.module.scss";
 import {createDevice, deleteDevice, getDevices, updateDevice} from "../api/device";
 import {StatefulLabeledInput} from "./Forms";
+import {addSlot, removeSlot} from "../api/slot";
 
 const List: React.FC<{
     title: string;
@@ -41,6 +42,9 @@ const DeviceList = () => {
     const [updateName, setUpdateName] = useState<string>("");
     const [updateLocation, setUpdateLocation] = useState<string>("");
     const [updateError, setUpdateError] = useState<Error>();
+    const [showSlots, setShowSlots] = useState<boolean>(false);
+    const [slotCapacity, setSlotCapacity] = useState<string>("");
+    const [createSlotError, setCreateSlotError] = useState<Error>();
 
     interface DeviceDisplayProps {
         device: Device;
@@ -67,10 +71,11 @@ const DeviceList = () => {
                         <div>
                             <p>Nume - <i>{device.name}</i></p>
                             <p>Locaţie - <i>{device.location}</i></p>
+                            <p>Fante - <i>{device.slots.length}</i></p>
                         </div>
                         <div className={"d-flex flex-column gap-2"}>
                             <Button
-                                variant="danger w-100"
+                                variant="danger"
                                 data-toggle="tooltip"
                                 data-placement="top"
                                 title="Şterge dispozitivul"
@@ -82,7 +87,7 @@ const DeviceList = () => {
                                 <i className="bi bi-trash" />
                             </Button>
                             <Button
-                                variant="primary w-100"
+                                variant="primary"
                                 data-toggle="tooltip"
                                 data-placement="top"
                                 title="Actualizează dispozitivul"
@@ -92,6 +97,18 @@ const DeviceList = () => {
                                 }}
                             >
                                 <i className="bi bi-arrow-clockwise" />
+                            </Button>
+                            <Button
+                              variant="info"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                              title="Modifică fantele dispozitivului"
+                              onClick={() => {
+                                setUpdateId(device.id);
+                                setShowSlots(true);
+                              }}
+                            >
+                              <i className="bi bi-archive" />
                             </Button>
                         </div>
                     </div>
@@ -104,6 +121,99 @@ const DeviceList = () => {
         return <List title="Dispozitive" />
     return (
         <>
+          <Modal show={showSlots} onHide={() => setShowSlots(false)}>
+            <Modal.Header closeButton>
+              <Modal.Title>Statusul fantelor</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className={"pb-2 mb-2 border-bottom"}>
+                <h4>Adaugă o nouă fantă</h4>
+                {createSlotError && (
+                  <Alert
+                    variant={"danger"}
+                    onClose={() => setCreateSlotError(undefined)}
+                    dismissible
+                  >
+                    {createSlotError.message}
+                  </Alert>
+                )}
+                <StatefulLabeledInput
+                  value={slotCapacity}
+                  setValue={setSlotCapacity}
+                  name={"capacity"}
+                  label={"Capacitate"}
+                  type={"text"}
+                  className={"mb-2"}
+                  />
+                <Button onClick={() => {
+                  if (slotCapacity === "") {
+                    setCreateSlotError(new Error("Trebuie să specificați capacitatea fantei"));
+                    return;
+                  }
+                  const capacity = parseFloat(slotCapacity);
+                  if (isNaN(capacity)) {
+                    setCreateSlotError(new Error("Capacitatea trebuie să fie un număr"));
+                    return;
+                  }
+                  addSlot(updateId, capacity)
+                    .then(slot => {
+                      const newDevices = [...devices];
+                      setDevices(newDevices.map((device) => {
+                        if (device.id === updateId) {
+                          return {
+                            ...device,
+                            slots: [...device.slots, slot]
+                          }
+                        }
+                        return device;
+                      }));
+                    })
+                    .catch(setCreateSlotError);
+                }}>Adaugă</Button>
+              </div>
+              <div>
+                <h4>Fantele existente</h4>
+                <ul className={"d-flex flex-column gap-2"}>
+                  {devices.find((device) => device.id === updateId)?.slots.map((slot, index) => (
+                    <li key={index}>
+                      <div className={"d-flex flex-row justify-content-between align-items-center"}>
+                        <p>Fanta {index + 1} - {slot.capacity} locuri</p>
+                        <Button
+                          variant="danger"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Şterge fanta"
+                          onClick={() => {
+                            removeSlot(slot.id)
+                              .then(() => {
+                                const newDevices = [...devices];
+                                setDevices(newDevices.map((device) => {
+                                  if (device.id === updateId) {
+                                    return {
+                                      ...device,
+                                      slots: device.slots.filter((s) => s.id !== slot.id)
+                                    }
+                                  }
+                                  return device;
+                                }));
+                              })
+                          }}
+                        >
+                          <i className="bi bi-trash" />
+                        </Button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={() => setShowSlots(false)}>
+                Închide
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
             <Modal show={showUpdate} onHide={() => setShowUpdate(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Actualizează dispozitivul</Modal.Title>

@@ -14,11 +14,11 @@ public class SlotService {
         this.slotRepository = slotRepository;
     }
 
-    public void create(Device device, Double capacity) {
+    public Slot create(Device device, Double capacity) {
         var slot = new Slot();
         slot.setDevice(device);
         slot.setCapacity(capacity);
-        slotRepository.save(slot);
+        return slotRepository.save(slot);
     }
 
     public Slot get(Long slotId) {
