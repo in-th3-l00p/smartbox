@@ -2,14 +2,14 @@ import React from "react";
 import {Alert, Container} from "react-bootstrap";
 
 interface AuthFormProps {
-  type: "login" | "register";
+  title: string,
   onSubmit?: (data: EventTarget) => void;
   error?: Error;
   setError?: React.Dispatch<React.SetStateAction<Error | undefined>>;
   children: JSX.Element | JSX.Element[];
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ error, setError, onSubmit, type, children }) => {
+const AuthForm: React.FC<AuthFormProps> = ({ title, error, setError, onSubmit, children }) => {
   return (
     <Container className={"mt-3"}>
       <form onSubmit={(e) => {
@@ -17,7 +17,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ error, setError, onSubmit, type, ch
         if (onSubmit !== undefined)
             onSubmit(e.target);
       }}>
-        <h1 className={"text-center"}>{type === "login" ? "Login" : "Register"}</h1>
+        <h1 className={"text-center"}>{title}</h1>
         {(error !== undefined && setError != undefined) && (
           <Alert
             variant={"danger"}

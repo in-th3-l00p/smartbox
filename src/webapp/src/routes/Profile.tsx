@@ -1,86 +1,97 @@
-import React, {useEffect, useState} from "react";
-import useQuery from "../hooks/useQuery";
-import {User} from "../types/dtos";
-import {getCurrentUserDetails, updateCurrentUser} from "../api/user";
-import LoadingSpinner from "../components/LoadingSpinner";
-import {Button, Container} from "react-bootstrap";
+import React, {useContext, useEffect, useState} from "react";
+import {updateCurrentUser} from "../api/user";
+import {Alert, Button, Container} from "react-bootstrap";
 import style from "./../styles/Profile.module.scss";
-import {LabeledInput} from "../components/Forms";
+import {StatefulLabeledInput} from "../components/Forms";
+import AuthContext from "../context/AuthContext";
+import {useSearchParams} from "react-router-dom";
 
 const Profile = () => {
-  const [userDetails, setUserDetails] = useState<User>({} as User);
-  const [loading, queryError] = useQuery(async () => {
-    setUserDetails(await getCurrentUserDetails());
-  });
+  const auth = useContext(AuthContext);
   const [error, setError] = useState<Error>();
+  const params = useSearchParams();
 
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const setFields = () => {
-    setFirstName(userDetails.firstName);
-    setLastName(userDetails.lastName);
-    setAddress(userDetails.address);
-    setEmail(userDetails.email);
+    setFirstName(auth.userDetails.firstName);
+    setLastName(auth.userDetails.lastName);
+    setAddress(auth.userDetails.address);
+    setEmail(auth.userDetails.email);
   }
 
   const checkFieldsChanged = () => {
     return !(
-      firstName === userDetails.firstName &&
-      lastName === userDetails.lastName &&
-      address === userDetails.address &&
-      email === userDetails.email
+      firstName === auth.userDetails.firstName &&
+      lastName === auth.userDetails.lastName &&
+      address === auth.userDetails.address &&
+      email === auth.userDetails.email
     );
   }
 
   useEffect(() => {
-    if (userDetails)
-      setFields();
-  }, [userDetails])
+    setFields();
+  }, [])
 
-  if (loading)
-    return <LoadingSpinner />
   return (
     <>
-      <h1 className={style.title}>Your profile</h1>
+      <h1 className={style.title}>Profilul tău</h1>
       <Container className={style.principalContainer}>
         <img src={"/blank-pfp.webp"} alt={"profile"} className={style.pfp} />
         <form className={style.fieldsContainer} onSubmit={(e) => {
           e.preventDefault();
-          updateCurrentUser(firstName, lastName, address, email)
-            .then(() => console.log("success"))
-            .catch(setError)
+          updateCurrentUser(
+            auth.userDetails.login,
+            firstName,
+            lastName,
+            address,
+            email
+          )
+            .then(() => window.location.href = "/profile?profileUpdated")
+            .catch(setError);
         }}>
-          <LabeledInput
+          {params[0].has("profileUpdated") && (
+            <Alert variant="success" dismissible>
+              Profilul a fost actualizat cu succes!
+            </Alert>
+          )}
+          {params[0].has("passwordChanged") && (
+            <Alert variant="success" dismissible>
+              Parola a fost schimbată cu succes!
+            </Alert>
+          )}
+          <StatefulLabeledInput
             name={"username"}
-            label={"Username"}
+            label={"Nume utilizator"}
             type={"text"}
-            value={userDetails.login}
+            value={auth.userDetails.login}
+            setValue={() => {}}
             readOnly={true}
           />
-          <LabeledInput
+          <StatefulLabeledInput
             name={"firstName"}
-            label={"First name"}
+            label={"Nume"}
             type={"text"}
             value={firstName}
             setValue={setFirstName}
           />
-          <LabeledInput
+          <StatefulLabeledInput
             name={"lastName"}
-            label={"Last name"}
+            label={"Prenume"}
             type={"text"}
             value={lastName}
             setValue={setLastName}
           />
-          <LabeledInput
+          <StatefulLabeledInput
             name={"address"}
-            label={"Address"}
+            label={"Adresă"}
             type={"text"}
             value={address}
             setValue={setAddress}
           />
-          <LabeledInput
+          <StatefulLabeledInput
             name={"email"}
             label={"Email"}
             type={"text"}
@@ -99,15 +110,25 @@ const Profile = () => {
                 || !address
                 || !email}
             >
-              Save
+              Salvează
             </Button>
             <Button
               type={"button"}
               disabled={!checkFieldsChanged()}
               onClick={setFields}
             >
-              Discard
+              Anulează
             </Button>
+            <br />
+            <a href="/changePassword">
+              <Button
+                type={"button"}
+                variant={"success"}
+                className={"mt-3"}
+              >
+                Schimbă parola
+              </Button>
+            </a>
           </span>
         </form>
       </Container>

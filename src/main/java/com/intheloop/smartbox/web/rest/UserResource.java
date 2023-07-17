@@ -12,10 +12,6 @@ import com.intheloop.smartbox.web.rest.errors.EmailAlreadyUsedException;
 import com.intheloop.smartbox.web.rest.errors.LoginAlreadyUsedException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.*;
-import java.util.Collections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +27,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing users.
@@ -96,7 +99,7 @@ public class UserResource {
     /**
      * {@code POST  /admin/users}  : Creates a new user.
      * <p>
-     * Creates a new user if the login and email are not already used, and sends an
+     * Creates a new user if the logi and email are not already used, and sends an
      * mail with an activation link.
      * The user needs to be activated on creation.
      *

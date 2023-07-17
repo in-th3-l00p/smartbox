@@ -7,13 +7,14 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.BatchSize;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.BatchSize;
 
 /**
  * A user.
@@ -89,6 +90,9 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     )
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Card card;
 
     public Long getId() {
         return id;
@@ -201,6 +205,14 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
     }
 
     @Override

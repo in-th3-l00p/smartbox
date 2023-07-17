@@ -3,7 +3,11 @@ package com.intheloop.smartbox.service.dto;
 import com.intheloop.smartbox.config.Constants;
 import com.intheloop.smartbox.domain.Authority;
 import com.intheloop.smartbox.domain.User;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Set;
@@ -54,6 +58,8 @@ public class AdminUserDTO implements Serializable {
 
     private Set<String> authorities;
 
+    private CardDTO cardDTO;
+
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -73,6 +79,7 @@ public class AdminUserDTO implements Serializable {
         this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
         this.address = user.getAddress();
+        this.cardDTO = new CardDTO(user.getCard());
     }
 
     public Long getId() {

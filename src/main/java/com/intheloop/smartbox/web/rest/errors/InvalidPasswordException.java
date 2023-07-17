@@ -16,7 +16,7 @@ public class InvalidPasswordException extends ErrorResponseException {
                 .instance()
                 .withStatus(HttpStatus.BAD_REQUEST.value())
                 .withType(ErrorConstants.INVALID_PASSWORD_TYPE)
-                .withTitle("Incorrect password")
+                .withTitle("Parola incorectă")
                 .build(),
             null
         );

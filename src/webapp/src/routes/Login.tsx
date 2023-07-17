@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import Layout from "../components/Layout";
 import AuthForm from "../components/AuthForm";
 import {LabeledInput} from "../components/Forms";
 import {Alert, Button} from "react-bootstrap";
@@ -20,7 +19,7 @@ const Login = () => {
     return <LoadingSpinner />
   return (
     <AuthForm
-      type={"login"}
+      title="Logare"
       error={error}
       setError={setError}
       onSubmit={(data) => {
@@ -30,7 +29,7 @@ const Login = () => {
         };
 
         if (selectedData.username.value === "" || selectedData.password.value === "") {
-          setError(new Error("Please fill out all fields."));
+          setError(new Error("Completează toate câmpurile."));
           return;
         }
 
@@ -44,13 +43,13 @@ const Login = () => {
     >
       {searchParams[0].has("registered") ? (
         <Alert variant={"success"} dismissible>
-          You have successfully registered! You can now login.
+          Contul a fost creat cu succes. Te poți loga acum.
         </Alert>
       ) : <></>}
-      <LabeledInput name={"username"} label={"Username"} type={"text"} />
-      <LabeledInput name={"password"} label={"Password"} type={"password"} />
+      <LabeledInput name={"username"} label={"Nume utilizator"} type={"text"} />
+      <LabeledInput name={"password"} label={"Parolă"} type={"password"} />
       <Button type={"submit"} variant={"primary"} className={"mx-auto"}>
-        Login
+        Loghează-te
       </Button>
     </AuthForm>
   )

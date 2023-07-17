@@ -5,7 +5,7 @@ import {Spinner} from "react-bootstrap";
 const LoadingSpinner: React.FC = () => {
   return (
     <div className={"text-center py-5 mx-auto"}>
-      <h1>Loading...</h1>
+      <h1>Se încarcă...</h1>
       <Spinner animation={"border"} />
     </div>
   );

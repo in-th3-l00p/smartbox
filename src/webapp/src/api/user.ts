@@ -17,15 +17,15 @@ export async function register(
     })
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status == 400)
-      throw new Error(error.response.data.detail || "Invalid input");
-    throw new Error("Serverside error. Please try again later.");
+      throw new Error(error.response.data.detail || "Completarea datelor a fost incorectă.");
+    throw new Error("Eroare în cadrul serverului. Vă rugăm să încercați mai târziu.");
   }
 }
 
 // returns the details of the current authenticated user
 export async function getCurrentUserDetails() {
   if (!(await isAuthenticated()))
-    throw new Error("You are not authenticated");
+    throw new Error("Nu eşti autentificat.");
   try {
     const response = await api.get(
       "/account",
@@ -33,22 +33,23 @@ export async function getCurrentUserDetails() {
     );
     return response.data;
   } catch (error) {
-    throw new Error("Serverside error. Please try again later.");
+    throw new Error("Eroare în cadrul serverului. Vă rugăm să încercați mai târziu.");
   }
 }
 
 export async function updateCurrentUser(
+  login: string,
   firstName: string,
   lastName: string,
   address: string,
   email: string
 ) {
   if (!(await isAuthenticated()))
-    throw new Error("You are not authenticated");
+    throw new Error("Nu eşti autentificat.");
   try {
     const response = await api.post(
       "/account",
-      {firstName, lastName, address, email},
+      {login, firstName, lastName, address, email},
       {headers: getAuthenticationHeader()}
     );
     return response.data;
@@ -59,7 +60,32 @@ export async function updateCurrentUser(
         error.response?.status === 400 ||
         error.response?.status === 500
       ))
-      throw new Error(error.response.data.detail || "Invalid input");
-    throw new Error("Serverside error. Please try again later.");
+      throw new Error(error.response.data.detail || "Completarea datelor a fost incorectă.");
+    throw new Error("Eroare în cadrul serverului. Vă rugăm să încercați mai târziu.");
+  }
+}
+
+export async function changeCurrentUserPassword(
+  currentPassword: string,
+  newPassword: string
+) {
+  if (!(await isAuthenticated()))
+    throw new Error("Nu eşti autentificat.");
+  try {
+    const response = await api.post(
+      "/account/change-password",
+      {currentPassword, newPassword},
+      {headers: getAuthenticationHeader()}
+    );
+    return response.data;
+  } catch (error) {
+    if (
+      error instanceof AxiosError &&
+      (
+        error.response?.status === 400 ||
+        error.response?.status === 500
+      ))
+      throw new Error(error.response.data.detail || "Completarea datelor a fost incorectă.");
+    throw new Error("Eroare în cadrul serverului. Vă rugăm să încercați mai târziu.");
   }
 }

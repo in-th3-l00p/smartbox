@@ -5,4 +5,11 @@ export interface User {
   lastName: string;
   address: string;
   email: string;
+  authorities: string[];
+}
+
+export interface Device {
+  id: number;
+  name: string;
+  location: string;
 }

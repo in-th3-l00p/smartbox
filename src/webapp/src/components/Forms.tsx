@@ -6,9 +6,8 @@ interface LabeledInputProps {
   label: string;
   type: "text" | "password" | "email";
   placeholder?: string;
-  value?: string;
-  setValue?: React.Dispatch<React.SetStateAction<string>>;
   readOnly?: boolean;
+  className?: string;
 }
 
 export const LabeledInput: React.FC<LabeledInputProps> = ({
@@ -16,33 +15,53 @@ export const LabeledInput: React.FC<LabeledInputProps> = ({
   label,
   type,
   placeholder,
-  value,
-  setValue,
-  readOnly=false
+  readOnly=false,
+  className=""
 }) => {
-  if (value && setValue)
-    return (
-      <FloatingLabel
-        controlId={name}
-        label={label}
-      >
-        <Form.Control
-          type={type}
-          placeholder={placeholder}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          readOnly={readOnly}
-        />
-      </FloatingLabel>
-    );
   return (
     <FloatingLabel
       controlId={name}
       label={label}
+      className={className}
     >
       <Form.Control
         type={type}
         placeholder={placeholder}
+      />
+    </FloatingLabel>
+  );
+}
+
+interface StatefulLabeledInputProps extends LabeledInputProps {
+  value: string;
+  setValue: (value: string) => void;
+}
+
+export const StatefulLabeledInput: React.FC<StatefulLabeledInputProps> = ({
+  name,
+  label,
+  type,
+  placeholder,
+  value,
+  setValue,
+  readOnly=false,
+  className=""
+}) => {
+  return (
+    <FloatingLabel
+      controlId={name}
+      label={label}
+      className={className}
+    >
+      <Form.Control
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => {
+          if (setValue !== undefined)
+            setValue(e.target.value || "");
+        }}
+        readOnly={readOnly}
       />
     </FloatingLabel>
   );

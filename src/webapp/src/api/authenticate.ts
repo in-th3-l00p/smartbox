@@ -1,5 +1,5 @@
 import api from "../utils/api";
-import axios, {AxiosError} from "axios";
+import {AxiosError} from "axios";
 import {getAuthenticationHeader} from "../utils/auth";
 
 export async function authenticate(username: string, password: string) {
@@ -15,9 +15,9 @@ export async function authenticate(username: string, password: string) {
       (error.response?.status === 401 ||
       error.response?.status === 400)
     )
-      throw new Error("Invalid username or password");
+      throw new Error("Nume de utilizator sau parolă greșită.");
     else
-      throw new Error("Serverside error. Please try again later.");
+      throw new Error("Eroare în cadrul serverului. Vă rugăm să încercați mai târziu.");
   }
 }
 
