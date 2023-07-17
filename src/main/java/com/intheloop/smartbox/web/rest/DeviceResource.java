@@ -62,7 +62,6 @@ public class DeviceResource {
     /**
      * {@code DELETE /api/admin/{deviceId}} : deletes a device
      * @param deviceId : device's id
-     * @return status {@code 200 (OK)} if the device is deleted, or {@code 400 (BAD REQUEST)} if the device doesn't exist
      */
     @DeleteMapping(path = "/{deviceId}")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
@@ -70,7 +69,11 @@ public class DeviceResource {
         deviceService.delete(deviceId);
     }
 
-    // todo generate documentation
+    /**
+     * {@code PUT /api/admin/{deviceId}} : updates a device
+     * @param deviceId : device's id
+     * @param deviceDTO : device DTO
+     */
     @PutMapping(
         path = "/{deviceId}",
         consumes = MediaType.APPLICATION_JSON_VALUE

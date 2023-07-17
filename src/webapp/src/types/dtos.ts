@@ -8,6 +8,13 @@ export interface User {
   authorities: string[];
 }
 
+export interface Slot {
+  id: number;
+  order: number;
+  empty: boolean;
+  capacity: number;
+}
+
 export interface Device {
   id: number;
   name: string;

@@ -44,14 +44,14 @@ public class DeviceService {
     public Device get(Long id) {
         var device = deviceRepository.findById(id);
         if (device.isEmpty())
-            throw new IllegalArgumentException();
+            throw new DeviceNotFoundException();
         return device.get();
     }
 
     public Device get(String name) {
         var device = deviceRepository.findByName(name);
         if (device.isEmpty())
-            throw new IllegalArgumentException();
+            throw new DeviceNotFoundException();
         return device.get();
     }
 

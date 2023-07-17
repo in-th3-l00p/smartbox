@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="1689601479568-1" author="intheloop (generated)">
+        <createTable tableName="slot">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_slot"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="DATETIME"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="DATETIME"/>
+            <column name="empty" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="capacity" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1689601479568-2" author="intheloop (generated)">
+        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="slot" constraintName="FK_SLOT_ON_DEVICE"
+                                 referencedColumnNames="id" referencedTableName="device"/>
+    </changeSet>
+
+</databaseChangeLog>
