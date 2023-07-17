@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from '../types/dtos';
+import {User} from '../utils/dtos';
 
 interface AuthContextProps {
     isAuthenticated: boolean;

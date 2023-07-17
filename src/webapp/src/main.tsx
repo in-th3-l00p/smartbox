@@ -9,7 +9,7 @@ import Login from "./routes/Login";
 import Register from "./routes/Register";
 import Layout from "./components/Layout";
 import Profile from "./routes/Profile";
-import {User} from './types/dtos';
+import {User} from './utils/dtos';
 import useQuery from './hooks/useQuery';
 import {getCurrentUserDetails} from './api/user';
 import AuthContext from './context/AuthContext';

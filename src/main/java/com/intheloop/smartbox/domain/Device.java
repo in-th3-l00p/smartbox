@@ -1,8 +1,9 @@
 package com.intheloop.smartbox.domain;
 
 import jakarta.persistence.*;
-import java.util.Set;
+
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -18,13 +19,16 @@ public class Device {
     @Column(name = "location", nullable = false)
     private String location;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "device")
-    private Set<Slot> slots = new HashSet<>();
-
     @OneToMany(
         cascade = CascadeType.ALL,
         mappedBy = "device",
         fetch = FetchType.EAGER
+    )
+    private Set<Slot> slots = new HashSet<>();
+
+    @OneToMany(
+        cascade = CascadeType.ALL,
+        mappedBy = "device"
     )
     private Set<Card> cards = new HashSet<>();
 

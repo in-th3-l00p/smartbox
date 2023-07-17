@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import style from "./../styles/Layout.module.scss";
 import {logout} from "../api/authenticate";
@@ -10,7 +10,6 @@ interface LayoutProps {
 
 const Header = () => {
   const auth = useContext(AuthContext);
-  useEffect(() => console.log(auth), []);
 
   return (
     <Navbar

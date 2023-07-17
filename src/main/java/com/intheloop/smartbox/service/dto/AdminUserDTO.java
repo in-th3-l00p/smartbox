@@ -58,8 +58,6 @@ public class AdminUserDTO implements Serializable {
 
     private Set<String> authorities;
 
-    private CardDTO cardDTO;
-
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -79,7 +77,6 @@ public class AdminUserDTO implements Serializable {
         this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
         this.address = user.getAddress();
-        this.cardDTO = new CardDTO(user.getCard());
     }
 
     public Long getId() {

@@ -1,12 +1,12 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import AuthContext from "../context/AuthContext";
-import { Container, Row, Col, Button, Modal, Alert } from "react-bootstrap";
+import {Alert, Button, Col, Container, Modal, Row} from "react-bootstrap";
 import useQuery from "../hooks/useQuery";
-import { Device, User } from "../types/dtos";
-import { getUsers } from "../api/admin";
+import {Device, User} from "../utils/dtos";
+import {getUsers} from "../api/admin";
 import style from "./../styles/Dashboard.module.scss";
-import { createDevice, deleteDevice, getDevices, updateDevice } from "../api/device";
-import { StatefulLabeledInput } from "./Forms";
+import {createDevice, deleteDevice, getDevices, updateDevice} from "../api/device";
+import {StatefulLabeledInput} from "./Forms";
 
 const List: React.FC<{
     title: string;
@@ -49,15 +49,15 @@ const DeviceList = () => {
         setUpdateOpen: React.Dispatch<React.SetStateAction<boolean>>;
     }
 
-    const DeviceDisplay: React.FC<DeviceDisplayProps> = ({ 
-        device, setUpdateId, setUpdateOpen, setDeleteOpen 
+    const DeviceDisplay: React.FC<DeviceDisplayProps> = ({
+        device, setUpdateId, setUpdateOpen, setDeleteOpen
     }) => {
         const [opened, setOpened] = useState<boolean>(false);
 
         return (
             <div className={style.element}>
-                <div 
-                    className={style.principalInfo} 
+                <div
+                    className={style.principalInfo}
                     onClick={() => setOpened(!opened)}
                 >
                     <p style={{fontSize: "1.35rem"}}>Dispozitiv: <b>{device.name}</b></p>
@@ -69,10 +69,10 @@ const DeviceList = () => {
                             <p>Locaţie - <i>{device.location}</i></p>
                         </div>
                         <div className={"d-flex flex-column gap-2"}>
-                            <Button 
+                            <Button
                                 variant="danger w-100"
-                                data-toggle="tooltip" 
-                                data-placement="top" 
+                                data-toggle="tooltip"
+                                data-placement="top"
                                 title="Şterge dispozitivul"
                                 onClick={() => {
                                     setUpdateId(device.id);
@@ -81,10 +81,10 @@ const DeviceList = () => {
                             >
                                 <i className="bi bi-trash" />
                             </Button>
-                            <Button 
+                            <Button
                                 variant="primary w-100"
-                                data-toggle="tooltip" 
-                                data-placement="top" 
+                                data-toggle="tooltip"
+                                data-placement="top"
                                 title="Actualizează dispozitivul"
                                 onClick={() => {
                                     setUpdateId(device.id);
@@ -110,9 +110,9 @@ const DeviceList = () => {
                 </Modal.Header>
                 <Modal.Body>
                     {updateError !== undefined && (
-                        <Alert 
-                            variant="danger" 
-                            onClose={() => setUpdateError(undefined)} 
+                        <Alert
+                            variant="danger"
+                            onClose={() => setUpdateError(undefined)}
                             dismissible
                         >
                             {updateError.message}
@@ -178,26 +178,26 @@ const DeviceList = () => {
                 <Modal.Body>
                     <p className={"text-center mb-3"}>Introdu informaţiile noului dispozitiv</p>
                     {createError !== undefined && (
-                        <Alert 
-                            variant="danger" 
-                            onClose={() => setCreateError(undefined)} 
+                        <Alert
+                            variant="danger"
+                            onClose={() => setCreateError(undefined)}
                             dismissible
                         >
                             {createError.message}
                         </Alert>
                     )}
-                    <StatefulLabeledInput 
+                    <StatefulLabeledInput
                         type="text"
                         name="name"
-                        label="Nume" 
+                        label="Nume"
                         value={createName}
                         setValue={setCreateName}
                         className="mb-3"
                     />
-                    <StatefulLabeledInput 
+                    <StatefulLabeledInput
                         type="text"
                         name="location"
-                        label="Locaţie" 
+                        label="Locaţie"
                         value={createLocation}
                         setValue={setCreateLocation}
                     />
@@ -223,7 +223,7 @@ const DeviceList = () => {
 
             <List title="Dispozitive">
                 <div className={style.controlButtons}>
-                    <Button 
+                    <Button
                         className={style.controlButton}
                         onClick={() => setShowCreate(true)}
                     >
@@ -232,8 +232,8 @@ const DeviceList = () => {
                 </div>
                 {devices.map((device, index) => (
                     <li key={index}>
-                        <DeviceDisplay 
-                            device={device}  
+                        <DeviceDisplay
+                            device={device}
                             setUpdateId={setUpdateId}
                             setUpdateOpen={setShowUpdate}
                             setDeleteOpen={setShowDelete}
@@ -257,8 +257,8 @@ const UserList = () => {
 
         return (
             <div className={style.element}>
-                <div 
-                    className={style.principalInfo} 
+                <div
+                    className={style.principalInfo}
                     onClick={() => setOpened(!opened)}
                 >
                     <img src={"/blank-pfp.webp"} alt="profile" className={style.pfp} />
@@ -274,9 +274,9 @@ const UserList = () => {
                             <p>Email - <i>{user.email}</i></p>
                         </div>
                         <div className={"d-flex flex-column gap-2"}>
-                            <Button 
-                                data-toggle="tooltip" 
-                                data-placement="top" 
+                            <Button
+                                data-toggle="tooltip"
+                                data-placement="top"
                                 title="Modifică card"
                             ><i className="bi bi-person-vcard"></i></Button>
                         </div>
