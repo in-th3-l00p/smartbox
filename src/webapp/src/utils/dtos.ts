@@ -18,9 +18,7 @@ export interface User {
 
 export interface Slot {
   id: number;
-  order: number;
-  empty: boolean;
-  capacity: number;
+  volume: number;
 }
 
 export interface Device {
@@ -28,4 +26,19 @@ export interface Device {
   name: string;
   location: string;
   slots: Slot[];
+}
+
+export interface Transaction {
+  id: number;
+  volume: number;
+  createdDate: string;
+  card: Card;
+  slot: Slot;
+}
+
+export interface DeviceLog {
+  id: number;
+  log: string;
+  createdDate: string;
+  device: Device;
 }

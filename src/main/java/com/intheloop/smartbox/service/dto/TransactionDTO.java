@@ -1,8 +1,9 @@
 package com.intheloop.smartbox.service.dto;
 
+import com.intheloop.smartbox.domain.Transaction;
+
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Objects;
 
 /**
  * DTO for {@link com.intheloop.smartbox.domain.Transaction}
@@ -13,15 +14,30 @@ public class TransactionDTO implements Serializable {
     private final String lastModifiedBy;
     private final Instant lastModifiedDate;
     private final Long id;
-    private final Double capacity;
+    private final Double volume;
+    private final CardDTO card;
+    private final SlotDTO slot;
 
-    public TransactionDTO(String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate, Long id, Double capacity) {
+    public TransactionDTO(String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate, Long id, Double volume, CardDTO card, SlotDTO slot) {
         this.createdBy = createdBy;
         this.createdDate = createdDate;
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.id = id;
-        this.capacity = capacity;
+        this.volume = volume;
+        this.card = card;
+        this.slot = slot;
+    }
+
+    public TransactionDTO(Transaction transaction) {
+        this.id = transaction.getId();
+        this.createdBy = transaction.getCreatedBy();
+        this.createdDate = transaction.getCreatedDate();
+        this.lastModifiedBy = transaction.getLastModifiedBy();
+        this.lastModifiedDate = transaction.getLastModifiedDate();
+        this.volume = transaction.getVolume();
+        this.card = new CardDTO(transaction.getCard());
+        this.slot = new SlotDTO(transaction.getSlot());
     }
 
     public String getCreatedBy() {
@@ -44,36 +60,15 @@ public class TransactionDTO implements Serializable {
         return id;
     }
 
-    public Double getCapacity() {
-        return capacity;
+    public Double getVolume() {
+        return volume;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TransactionDTO entity = (TransactionDTO) o;
-        return Objects.equals(this.createdBy, entity.createdBy) &&
-            Objects.equals(this.createdDate, entity.createdDate) &&
-            Objects.equals(this.lastModifiedBy, entity.lastModifiedBy) &&
-            Objects.equals(this.lastModifiedDate, entity.lastModifiedDate) &&
-            Objects.equals(this.id, entity.id) &&
-            Objects.equals(this.capacity, entity.capacity);
+    public CardDTO getCard() {
+        return card;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(createdBy, createdDate, lastModifiedBy, lastModifiedDate, id, capacity);
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-            "createdBy = " + createdBy + ", " +
-            "createdDate = " + createdDate + ", " +
-            "lastModifiedBy = " + lastModifiedBy + ", " +
-            "lastModifiedDate = " + lastModifiedDate + ", " +
-            "id = " + id + ", " +
-            "capacity = " + capacity + ")";
+    public SlotDTO getSlot() {
+        return slot;
     }
 }

@@ -1,11 +1,13 @@
 package com.intheloop.smartbox.web.rest;
 
+import com.intheloop.smartbox.security.AuthoritiesConstants;
 import com.intheloop.smartbox.service.DeviceService;
 import com.intheloop.smartbox.service.SlotService;
 import com.intheloop.smartbox.service.dto.SlotDTO;
 import com.intheloop.smartbox.web.rest.errors.DeviceNameAlreadyUsedException;
 import com.intheloop.smartbox.web.rest.errors.SlotNotFoundException;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,31 +24,16 @@ public class SlotResource {
     /**
      * {@code POST /api/admin/slot/{deviceId}} : Create a new slot
      * @param deviceId : device id
-     * @param capacity : slot's capacity
      * @throws DeviceNameAlreadyUsedException if the given name is already used, with status {@code 404 (NOT FOUND)}
      */
     @PostMapping(
         path = "/{deviceId}",
         consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public SlotDTO createSlot(
-        @PathVariable Long deviceId,
-        @RequestParam Double capacity
-    ) {
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public SlotDTO createSlot(@PathVariable Long deviceId) {
         var device = deviceService.get(deviceId);
-        return new SlotDTO(slotService.create(device, capacity));
-    }
-
-    /**
-     * {@code PUT /api/admin/slot/{slotId}} : Update a slot
-     * @param slotId : slot id
-     * @param capacity : new capacity
-     * @throws SlotNotFoundException if slot doesn't exist, with status {@code 404 (NOT FOUND)}
-     */
-    @PutMapping("/{slotId}")
-    public void updateSlot(@PathVariable Long slotId, @RequestParam("capacity") Double capacity) {
-        var slot = slotService.get(slotId);
-        slotService.updateCapacity(slot, capacity);
+        return new SlotDTO(slotService.create(device));
     }
 
     /**
@@ -55,6 +42,7 @@ public class SlotResource {
      * @throws SlotNotFoundException if slot doesn't exist, with status {@code 404 (NOT FOUND)}
      */
     @DeleteMapping("/{slotId}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public void deleteSlot(@PathVariable Long slotId) {
         var slot = slotService.get(slotId);
         slotService.delete(slot);

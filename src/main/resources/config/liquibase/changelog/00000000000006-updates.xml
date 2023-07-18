@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="1689633486694-1" author="intheloop (generated)">
+        <addColumn tableName="transaction">
+            <column name="slot_id" type="BIGINT"/>
+            <column name="volume" type="DOUBLE"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1689633486694-2" author="intheloop (generated)">
+        <addColumn tableName="slot">
+            <column name="volume" type="DOUBLE"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1689633486694-3" author="intheloop (generated)">
+        <addNotNullConstraint columnDataType="DOUBLE" columnName="volume" tableName="slot"/>
+    </changeSet>
+    <changeSet id="1689633486694-5" author="intheloop (generated)">
+        <addNotNullConstraint columnDataType="DOUBLE" columnName="volume" tableName="transaction"/>
+    </changeSet>
+    <changeSet id="1689633486694-6" author="intheloop (generated)">
+        <addForeignKeyConstraint baseColumnNames="slot_id" baseTableName="transaction"
+                                 constraintName="FK_TRANSACTION_ON_SLOT" referencedColumnNames="id"
+                                 referencedTableName="slot"/>
+    </changeSet>
+    <changeSet id="1689633486694-8" author="intheloop (generated)">
+        <dropColumn columnName="capacity" tableName="slot"/>
+
+        <dropColumn columnName="is_empty" tableName="slot"/>
+    </changeSet>
+    <changeSet id="1689633486694-9" author="intheloop (generated)">
+        <dropColumn columnName="capacity" tableName="transaction"/>
+    </changeSet>
+
+</databaseChangeLog>

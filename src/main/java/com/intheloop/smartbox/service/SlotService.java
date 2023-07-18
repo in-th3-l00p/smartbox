@@ -14,10 +14,9 @@ public class SlotService {
         this.slotRepository = slotRepository;
     }
 
-    public Slot create(Device device, Double capacity) {
+    public Slot create(Device device) {
         var slot = new Slot();
         slot.setDevice(device);
-        slot.setCapacity(capacity);
         return slotRepository.save(slot);
     }
 
@@ -28,8 +27,8 @@ public class SlotService {
         return slot.get();
     }
 
-    public void updateCapacity(Slot slot, Double capacity) {
-        slot.setCapacity(capacity);
+    public void updateCapacity(Slot slot, Double volume) {
+        slot.setVolume(volume);
         slotRepository.save(slot);
     }
 

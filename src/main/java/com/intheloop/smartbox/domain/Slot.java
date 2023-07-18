@@ -2,6 +2,8 @@ package com.intheloop.smartbox.domain;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table
 public class Slot {
@@ -10,14 +12,14 @@ public class Slot {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "is_empty", nullable = false)
-    private boolean empty = true;
-
-    @Column(name = "capacity", nullable = false)
-    private Double capacity;
+    @Column(name = "volume", nullable = false)
+    private Double volume = 0.0;
 
     @ManyToOne
     private Device device;
+
+    @OneToMany(mappedBy = "slot", cascade = CascadeType.REMOVE)
+    private Set<Transaction> transactions;
 
     public Slot() {
     }
@@ -30,20 +32,12 @@ public class Slot {
         this.id = id;
     }
 
-    public boolean isEmpty() {
-        return empty;
+    public Double getVolume() {
+        return volume;
     }
 
-    public void setEmpty(boolean empty) {
-        this.empty = empty;
-    }
-
-    public Double getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Double capacity) {
-        this.capacity = capacity;
+    public void setVolume(Double volume) {
+        this.volume = volume;
     }
 
     public Device getDevice() {
@@ -52,5 +46,13 @@ public class Slot {
 
     public void setDevice(Device device) {
         this.device = device;
+    }
+
+    public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

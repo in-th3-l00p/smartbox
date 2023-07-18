@@ -1,6 +1,6 @@
 package com.intheloop.smartbox.web.rest;
 
-import com.intheloop.smartbox.domain.Card;
+import com.intheloop.smartbox.security.AuthoritiesConstants;
 import com.intheloop.smartbox.service.CardService;
 import com.intheloop.smartbox.service.DeviceService;
 import com.intheloop.smartbox.service.UserService;
@@ -9,6 +9,7 @@ import com.intheloop.smartbox.web.rest.errors.CardNotFound;
 import com.intheloop.smartbox.web.rest.errors.DeviceNotFoundException;
 import com.intheloop.smartbox.web.rest.errors.UserNotFound;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,6 +34,7 @@ public class CardResource {
      * @throws UserNotFound if user doesn't exist, with status {@code 404 (NOT FOUND)}
      */
     @PostMapping
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<?> createCard(
         @RequestParam("userId") Long userId,
         @RequestParam("deviceId") Long deviceId
@@ -54,6 +56,7 @@ public class CardResource {
      * @throws CardNotFound if card doesn't exist, with status {@code 404 (NOT FOUND)}
      */
     @PutMapping("/{cardId}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public CardDTO updateCard(
         @PathVariable Long cardId,
         @RequestParam("deviceId") Long deviceId
@@ -69,6 +72,7 @@ public class CardResource {
      * @throws CardNotFound if card doesn't exist, with status {@code 404 (NOT FOUND)}
      */
     @DeleteMapping("/{cardId}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public void deleteCard(@PathVariable Long cardId) {
         var card = cardService.get(cardId);
         cardService.delete(card);

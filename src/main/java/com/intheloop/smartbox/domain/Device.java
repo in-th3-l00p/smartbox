@@ -29,6 +29,9 @@ public class Device {
     @OneToMany(mappedBy = "device")
     private Set<Card> cards = new HashSet<>();
 
+    @OneToMany(mappedBy = "device", cascade = CascadeType.REMOVE)
+    private Set<DeviceLog> deviceLogs = new HashSet<>();
+
     public Device() {
     }
 
@@ -70,5 +73,13 @@ public class Device {
 
     public void setSlots(Set<Slot> slots) {
         this.slots = slots;
+    }
+
+    public Set<DeviceLog> getDeviceLogs() {
+        return deviceLogs;
+    }
+
+    public void setDeviceLogs(Set<DeviceLog> deviceLogs) {
+        this.deviceLogs = deviceLogs;
     }
 }

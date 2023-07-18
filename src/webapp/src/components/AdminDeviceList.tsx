@@ -31,6 +31,7 @@ const DeviceDisplay: React.FC<DeviceDisplayProps> = (
       {opened && (
         <div className={style.details}>
           <div>
+            <p>ID - <i>{device.id}</i></p>
             <p>Nume - <i>{device.name}</i></p>
             <p>Locaţie - <i>{device.location}</i></p>
             <p>Fante - <i>{device.slots.length}</i></p>
@@ -109,7 +110,6 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
         </Modal.Header>
         <Modal.Body>
           <div className={"pb-2 mb-2 border-bottom"}>
-            <h4>Adaugă o nouă fantă</h4>
             {createSlotError && (
               <Alert
                 variant={"danger"}
@@ -119,25 +119,8 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
                 {createSlotError.message}
               </Alert>
             )}
-            <StatefulLabeledInput
-              value={slotCapacity}
-              setValue={setSlotCapacity}
-              name={"capacity"}
-              label={"Capacitate"}
-              type={"text"}
-              className={"mb-2"}
-            />
             <Button onClick={() => {
-              if (slotCapacity === "") {
-                setCreateSlotError(new Error("Trebuie să specificați capacitatea fantei"));
-                return;
-              }
-              const capacity = parseFloat(slotCapacity);
-              if (isNaN(capacity)) {
-                setCreateSlotError(new Error("Capacitatea trebuie să fie un număr"));
-                return;
-              }
-              addSlot(updateId, capacity)
+              addSlot(updateId)
                 .then(slot => {
                   const newDevices = [...devices];
                   setDevices(newDevices.map((device) => {
@@ -159,7 +142,7 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
               {devices.find((device) => device.id === updateId)?.slots.map((slot, index) => (
                 <li key={index}>
                   <div className={"d-flex flex-row justify-content-between align-items-center"}>
-                    <p>Fanta {index + 1} - {slot.capacity} locuri</p>
+                    <p>Fanta {index + 1} - Volum: {slot.volume}</p>
                     <Button
                       variant="danger"
                       data-toggle="tooltip"
