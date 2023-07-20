@@ -5,6 +5,19 @@ import style from "./../styles/Profile.module.scss";
 import {StatefulLabeledInput} from "../components/Forms";
 import AuthContext from "../context/AuthContext";
 import {useSearchParams} from "react-router-dom";
+import {
+  PROFILE_ADDRESS,
+  PROFILE_CHANGE_PASSWORD_BUTTON,
+  PROFILE_EMAIL,
+  PROFILE_FIRST_NAME,
+  PROFILE_LAST_NAME,
+  PROFILE_SUCCESS_PASSWORD_CHANGE,
+  PROFILE_SUCCESS_UPDATE,
+  PROFILE_TITLE,
+  PROFILE_UPDATE_BUTTON,
+  PROFILE_UPDATE_CANCEL_BUTTON,
+  PROFILE_USERNAME
+} from "../utils/text";
 
 const Profile = () => {
   const auth = useContext(AuthContext);
@@ -37,7 +50,7 @@ const Profile = () => {
 
   return (
     <>
-      <h1 className={style.title}>Profilul tău</h1>
+      <h1 className={style.title}>{PROFILE_TITLE}</h1>
       <Container className={style.principalContainer}>
         <img src={"/blank-pfp.webp"} alt={"profile"} className={style.pfp} />
         <form className={style.fieldsContainer} onSubmit={(e) => {
@@ -53,18 +66,14 @@ const Profile = () => {
             .catch(setError);
         }}>
           {params[0].has("profileUpdated") && (
-            <Alert variant="success" dismissible>
-              Profilul a fost actualizat cu succes!
-            </Alert>
+            <Alert variant="success" dismissible>{PROFILE_SUCCESS_UPDATE}</Alert>
           )}
           {params[0].has("passwordChanged") && (
-            <Alert variant="success" dismissible>
-              Parola a fost schimbată cu succes!
-            </Alert>
+            <Alert variant="success" dismissible>{PROFILE_SUCCESS_PASSWORD_CHANGE}</Alert>
           )}
           <StatefulLabeledInput
             name={"username"}
-            label={"Nume utilizator"}
+            label={PROFILE_USERNAME}
             type={"text"}
             value={auth.userDetails.login}
             setValue={() => {}}
@@ -72,28 +81,28 @@ const Profile = () => {
           />
           <StatefulLabeledInput
             name={"firstName"}
-            label={"Nume"}
+            label={PROFILE_FIRST_NAME}
             type={"text"}
             value={firstName}
             setValue={setFirstName}
           />
           <StatefulLabeledInput
             name={"lastName"}
-            label={"Prenume"}
+            label={PROFILE_LAST_NAME}
             type={"text"}
             value={lastName}
             setValue={setLastName}
           />
           <StatefulLabeledInput
             name={"address"}
-            label={"Adresă"}
+            label={PROFILE_ADDRESS}
             type={"text"}
             value={address}
             setValue={setAddress}
           />
           <StatefulLabeledInput
             name={"email"}
-            label={"Email"}
+            label={PROFILE_EMAIL}
             type={"text"}
             value={email}
             setValue={setEmail}
@@ -110,14 +119,14 @@ const Profile = () => {
                 || !address
                 || !email}
             >
-              Salvează
+              {PROFILE_UPDATE_BUTTON}
             </Button>
             <Button
               type={"button"}
               disabled={!checkFieldsChanged()}
               onClick={setFields}
             >
-              Anulează
+              {PROFILE_UPDATE_CANCEL_BUTTON}
             </Button>
             <br />
             <a href="/changePassword">
@@ -126,7 +135,7 @@ const Profile = () => {
                 variant={"success"}
                 className={"mt-3"}
               >
-                Schimbă parola
+                {PROFILE_CHANGE_PASSWORD_BUTTON}
               </Button>
             </a>
           </span>

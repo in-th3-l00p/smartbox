@@ -15,28 +15,44 @@ import {getCurrentUserDetails} from './api/user';
 import AuthContext from './context/AuthContext';
 import LoadingSpinner from './components/LoadingSpinner';
 import ChangePassword from './routes/ChangePassword';
+import About from "./routes/About";
+import Contact from "./routes/Contact";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: <Home />,
+    errorElement: (
+      <div className={"mt-5 pt-5 text-center mx-5"}>
+        <h1>Pagina nu a fost găsita</h1>
+        <h2>Se pare ca nu putem găsi pagina cerută. Încearcă se te duci înapoi, sau contactează administratorul.</h2>
+      </div>
+    )
   },
   {
     path: "/login",
-    element: <Login />
+      element: <Login />
   },
   {
     path: "/register",
-    element: <Register />
+      element: <Register />
   },
   {
     path: "/profile",
-    element: <Profile />
+      element: <Profile />
   },
   {
     path: "/changePassword",
-    element: <ChangePassword />
-  }
+    element: <ChangePassword/>
+  },
+  {
+    path: "/about",
+    element: <About />
+  },
+  {
+    path: "/contact",
+    element: <Contact />
+  },
 ]);
 
 const App = () => {

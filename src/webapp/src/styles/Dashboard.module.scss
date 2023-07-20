@@ -1,12 +1,13 @@
 @import "constants.scss";
 
-$border-radius: 17.5px;
+$border-radius: 10px;
 .listContainer {
     height: 600px;
     background-color: $primary-white;
     padding: 20px;
     margin-block: 20px;
     border-radius: $border-radius;
+    box-shadow: 3px 3px 5px 2px gray;
 
     .title {
         text-align: center;
@@ -32,7 +33,7 @@ $border-radius: 17.5px;
         }
 
         .element {
-            border-bottom: 2px solid $secondary-red;
+            border-bottom: 2px solid $secondary-bg;
             $padding: 15px;
 
             .principalInfo {
@@ -45,26 +46,23 @@ $border-radius: 17.5px;
                 .pfp {
                     aspect-ratio: 1/1;
                     height: 55px;
-                    border: 2px solid $secondary-red;
+                    border: 2px solid $secondary-bg;
                     border-radius: 50%;
                     pointer-events: none;
                 }
 
                 &:hover {
                     animation: user-hover 0.2s ease-in-out;
-                    filter: brightness(0.8);
-                    background-color: $tertiary-red;
+                    background-color: $lighter-bg;
                     cursor: pointer;
                 }
 
                 @keyframes user-hover {
-                    from { 
-                        filter: brightness(1.0); 
+                    from {
                         background-color: $secondary-white;
-                    } 
-                    to { 
-                        filter: brightness(0.8); 
-                        background-color: $tertiary-red;
+                    }
+                    to {
+                        background-color: $lighter-bg;
                     }
                 }
             }

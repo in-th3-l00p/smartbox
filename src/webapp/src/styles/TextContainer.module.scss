@@ -1,0 +1,14 @@
+@import "constants.scss";
+
+$text-container-radius: 10px;
+.textContainer {
+  padding: 30px;
+  margin-block: 30px;
+  background-color: $primary-white;
+  overflow-wrap: break-word;
+
+  border-radius: $text-container-radius;
+  @media screen and (max-width: $breakpoint-sm) {
+    border-radius: 0;
+  }
+}

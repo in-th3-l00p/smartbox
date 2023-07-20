@@ -1,15 +1,25 @@
 import React, {useState} from "react";
 import AuthForm from "../components/AuthForm";
-import { LabeledInput } from "../components/Forms";
-import { Button } from "react-bootstrap";
-import { changeCurrentUserPassword } from "../api/user";
+import {LabeledInput} from "../components/Forms";
+import {Button} from "react-bootstrap";
+import {changeCurrentUserPassword} from "../api/user";
+import {
+  CHANGE_PASSWORD_BUTTON,
+  CHANGE_PASSWORD_CONFIRM_PASSWORD,
+  CHANGE_PASSWORD_NEW_PASSWORD,
+  CHANGE_PASSWORD_OLD_PASSWORD,
+  CHANGE_PASSWORD_TITLE,
+  ERROR_PASSWORDS_DONT_MATCH,
+  ERROR_SHROT_PASSWORD,
+  ERROR_UNCOMPLETED_FIELDS
+} from "../utils/text";
 
 const ChangePassword = () => {
     const [error, setError] = useState<Error>();
 
     return (
-        <AuthForm 
-            title="Schimba parola"
+        <AuthForm
+            title={CHANGE_PASSWORD_TITLE}
             error={error}
             setError={setError}
             onSubmit={(data) => {
@@ -20,22 +30,22 @@ const ChangePassword = () => {
                 };
 
                 if (selectedData.currentPassword.value === "" || selectedData.newPassword.value === "" || selectedData.repeatPassword.value === "") {
-                    setError(new Error("Completeaza toate campurile."));
+                    setError(new Error(ERROR_UNCOMPLETED_FIELDS));
                     return;
                 }
 
                 if (selectedData.newPassword.value !== selectedData.repeatPassword.value) {
-                    setError(new Error("Parolele nu se potrivesc."));
+                    setError(new Error(ERROR_PASSWORDS_DONT_MATCH));
                     return;
                 }
 
                 if (selectedData.newPassword.value.length < 8) {
-                    setError(new Error("Parola trebuie sa aiba minim 8 caractere."));
+                    setError(new Error(ERROR_SHROT_PASSWORD));
                     return;
                 }
 
                 changeCurrentUserPassword(
-                    selectedData.currentPassword.value, 
+                    selectedData.currentPassword.value,
                     selectedData.newPassword.value
                 )
                     .then(() => window.location.href = "/profile?passwordChanged")
@@ -44,24 +54,24 @@ const ChangePassword = () => {
         >
             <LabeledInput
                 name={"currentPassword"}
-                label={"Parola actuală"}
+                label={CHANGE_PASSWORD_OLD_PASSWORD}
                 type={"password"}
             />
 
             <LabeledInput
                 name={"newPassword"}
-                label={"Noua parola"}
+                label={CHANGE_PASSWORD_NEW_PASSWORD}
                 type={"password"}
             />
 
             <LabeledInput
                 name={"repeatPassword"}
-                label={"Repetă parola"}
+                label={CHANGE_PASSWORD_CONFIRM_PASSWORD}
                 type={"password"}
             />
 
             <Button type={"submit"} className={"btn btn-primary mx-auto"}>
-                Confirmă
+              {CHANGE_PASSWORD_BUTTON}
             </Button>
         </AuthForm>
     );

@@ -25,7 +25,6 @@ const DeviceLogDisplay: React.FC<{deviceLog: DeviceLog}> = ({ deviceLog }) => {
       {opened && (
         <div className={style.details}>
           <div>
-            <p>ID: {deviceLog.id}</p>
             <p>ID dispozitiv: {deviceLog.device.id}</p>
             <p>Nume dispozitiv: {deviceLog.device.name}</p>
             <p>Locație dispozitiv: {deviceLog.device.location}</p>

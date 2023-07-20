@@ -65,3 +65,36 @@ export const StatefulLabeledInput: React.FC<StatefulLabeledInputProps> = ({
     </FloatingLabel>
   );
 }
+
+interface LabeledTextAreaProps {
+  name: string;
+  label: string;
+  placeholder?: string;
+  readOnly?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export const LabeledTextArea: React.FC<LabeledTextAreaProps> = ({
+  name,
+  label,
+  placeholder,
+  readOnly=false,
+  className="",
+  style={}
+}) => {
+  return (
+    <FloatingLabel
+      controlId={name}
+      label={label}
+      className={className}
+    >
+      <Form.Control
+        as={"textarea"}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        style={style}
+      />
+    </FloatingLabel>
+  );
+}

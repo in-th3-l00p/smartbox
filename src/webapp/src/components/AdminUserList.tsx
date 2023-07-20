@@ -6,6 +6,26 @@ import {getUsers} from "../api/admin";
 import List from "./List";
 import style from "./../styles/Dashboard.module.scss";
 import {createCard, deleteCard, updateCard} from "../api/card";
+import {
+  ADMIN_DASHBOARD_USER_LIST_ADDRESS,
+  ADMIN_DASHBOARD_USER_LIST_CARD,
+  ADMIN_DASHBOARD_USER_LIST_CARD_EMPTY,
+  ADMIN_DASHBOARD_USER_LIST_EMAIL,
+  ADMIN_DASHBOARD_USER_LIST_FIRST_NAME,
+  ADMIN_DASHBOARD_USER_LIST_LAST_NAME,
+  ADMIN_DASHBOARD_USER_LIST_TITLE,
+  ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_BUTTON_PLACEHOLDER,
+  ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_DEVICE_LOCATION,
+  ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_DEVICE_NAME,
+  ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_ID,
+  ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_TITLE,
+  ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_CLOSE_BUTTON,
+  ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_CONFIRM_BUTTON,
+  ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_DEFAULT_OPTION,
+  ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_DELETE_BUTTON,
+  ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_TEXT,
+  ADMIN_DASHBOARD_USER_LIST_USERNAME
+} from "../utils/text";
 
 interface UserDisplayProps {
   user: User;
@@ -28,18 +48,18 @@ const UserDisplay: React.FC<UserDisplayProps> = ({ user, setUpdateUser, setShowE
       {opened && (
         <div className={style.details}>
           <div>
-            <p>Nume utilizator - <i>{user.login}</i></p>
-            <p>Nume - <i>{user.firstName}</i></p>
-            <p>Prenume - <i>{user.lastName}</i></p>
-            <p>Adresă - <i>{user.email}</i></p>
-            <p>Email - <i>{user.email}</i></p>
-            <p>Card - <i>{user.card === null ? "nu are" : user.card.device.name}</i></p>
+            <p>{ADMIN_DASHBOARD_USER_LIST_USERNAME} - <i>{user.login}</i></p>
+            <p>{ADMIN_DASHBOARD_USER_LIST_FIRST_NAME} - <i>{user.firstName}</i></p>
+            <p>{ADMIN_DASHBOARD_USER_LIST_LAST_NAME} - <i>{user.lastName}</i></p>
+            <p>{ADMIN_DASHBOARD_USER_LIST_ADDRESS} - <i>{user.address}</i></p>
+            <p>{ADMIN_DASHBOARD_USER_LIST_EMAIL} - <i>{user.email}</i></p>
+            <p>{ADMIN_DASHBOARD_USER_LIST_CARD} - <i>{user.card === null ? ADMIN_DASHBOARD_USER_LIST_CARD_EMPTY : user.card.device.name}</i></p>
           </div>
           <div className={"d-flex flex-column gap-2"}>
             <Button
               data-toggle="tooltip"
               data-placement="top"
-              title="Modifică card"
+              title={ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_BUTTON_PLACEHOLDER}
               onClick={() => {
                 setUpdateUser(user);
                 setShowEditCard(true);
@@ -66,22 +86,22 @@ const AdminUserList: React.FC<{ devices: Device[] }> = ({ devices }) => {
   const [selectDeviceId, setSelectDeviceId] = useState<number>(0);
 
   if (loading)
-    return <List title="Utilizatori" />
+    return <List title={ADMIN_DASHBOARD_USER_LIST_TITLE} />
   return (
     <>
       <Modal show={showEditCard} onHide={() => setShowEditCard(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Status card</Modal.Title>
+          <Modal.Title>{ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_TITLE}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {updateUser?.card === null ? (
             <>
-              <p>Selectează locația noului card:</p>
+              <p>{ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_TEXT}</p>
               <Form.Select
                 className={"mb-3"}
                 onChange={(e) => setSelectDeviceId(parseInt(e.target.value))}
               >
-                <option>Selectează o opțiune</option>
+                <option>{ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_DEFAULT_OPTION}</option>
                 {devices.map((device, index) => (
                   <option key={index} value={device.id}>{device.name}</option>
                 ))}
@@ -101,22 +121,22 @@ const AdminUserList: React.FC<{ devices: Device[] }> = ({ devices }) => {
                 }}
                 disabled={selectDeviceId === 0}
               >
-                Confirmă
+                {ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_CONFIRM_BUTTON}
               </Button>
             </>
         ): (
           <>
             <div className={"mb-3 border-bottom pb-2"}>
-              <p>Id card: <i>{updateUser?.card?.id}</i></p>
-              <p>Dispozitivul cardului: <i>{updateUser?.card?.device.name}</i></p>
-              <p>Locația dispozitivului cardului: <i>{updateUser?.card?.device.location}</i></p>
+              <p>{ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_ID} <i>{updateUser?.card?.id}</i></p>
+              <p>{ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_DEVICE_NAME} <i>{updateUser?.card?.device.name}</i></p>
+              <p>{ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_DEVICE_LOCATION} <i>{updateUser?.card?.device.location}</i></p>
             </div>
-            <p>Schimbă dispozitivul cardului:</p>
+            <p>{ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_TEXT}</p>
             <Form.Select
               className={"mb-3"}
               onChange={(e) => setSelectDeviceId(parseInt(e.target.value))}
             >
-              <option>Selectează o opțiune</option>
+              <option>{ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_DEFAULT_OPTION}</option>
               {devices.map((device, index) => (
                 <option key={index} value={device.id}>{device.name}</option>
               ))}
@@ -137,7 +157,7 @@ const AdminUserList: React.FC<{ devices: Device[] }> = ({ devices }) => {
               }}
               disabled={selectDeviceId === 0}
             >
-              Confirmă
+              {ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_CONFIRM_BUTTON}
             </Button>
             <br />
             <Button
@@ -155,18 +175,18 @@ const AdminUserList: React.FC<{ devices: Device[] }> = ({ devices }) => {
                   })
               }}
             >
-              Șterge cardul
+              {ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_DELETE_BUTTON}
             </Button>
           </>
         )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={() => setShowEditCard(false)}>
-            Închide
+            {ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_UPDATE_CLOSE_BUTTON}
           </Button>
         </Modal.Footer>
       </Modal>
-      <List title="Utilizatori">
+      <List title={ADMIN_DASHBOARD_USER_LIST_TITLE}>
         {users.map((user, index) => (
           <li key={index}>
             <UserDisplay

@@ -6,6 +6,20 @@ import {register} from "../api/user";
 import useQuery from "../hooks/useQuery";
 import {isAuthenticated} from "../api/authenticate";
 import LoadingSpinner from "../components/LoadingSpinner";
+import {
+  ERROR_PASSWORDS_DONT_MATCH,
+  ERROR_SHROT_PASSWORD,
+  ERROR_UNCOMPLETED_FIELDS,
+  REGISTER_ADDRESS,
+  REGISTER_BUTTON,
+  REGISTER_CONFIRM_PASSWORD,
+  REGISTER_EMAIL,
+  REGISTER_FIRST_NAME,
+  REGISTER_LAST_NAME,
+  REGISTER_PASSWORD,
+  REGISTER_TITLE,
+  REGISTER_USERNAME
+} from "../utils/text";
 
 const Register = () => {
   const [error, setError] = useState<Error>();
@@ -19,7 +33,7 @@ const Register = () => {
     return <LoadingSpinner />
   return (
     <AuthForm
-      title="Înregistrare"
+      title={REGISTER_TITLE}
       error={error}
       setError={setError}
       onSubmit={(data) => {
@@ -41,15 +55,15 @@ const Register = () => {
           !selectedData.password.value ||
           !selectedData.confirmPassword.value
         ) {
-          setError(new Error("Completează toate câmpurile."));
+          setError(new Error(ERROR_UNCOMPLETED_FIELDS));
           return;
         }
         if (selectedData.password.value !== selectedData.confirmPassword.value) {
-          setError(new Error("Parolele nu coincid."));
+          setError(new Error(ERROR_PASSWORDS_DONT_MATCH));
           return;
         }
         if (selectedData.password.value.length < 8) {
-          setError(new Error("Parola trebuie să aibă cel puțin 8 caractere."));
+          setError(new Error(ERROR_SHROT_PASSWORD));
           return;
         }
         register(
@@ -64,16 +78,14 @@ const Register = () => {
           .catch(err => setError(err));
       }}
     >
-      <LabeledInput name={"username"} label={"Nume utilizator"} type={"text"} />
-      <LabeledInput name={"firstName"} label={"Nume"} type={"text"} />
-      <LabeledInput name={"lastName"} label={"Prenume"} type={"text"} />
-      <LabeledInput name={"email"} label={"Email"} type={"email"} />
-      <LabeledInput name={"address"} label={"Adresă"} type={"text"} />
-      <LabeledInput name={"password"} label={"Parolă"} type={"password"} />
-      <LabeledInput name={"confirmPassword"} label={"Confirmă parola"} type={"password"} />
-      <Button type={"submit"} variant={"primary"} className={"mx-auto"}>
-        Înregistrează-te
-      </Button>
+      <LabeledInput name={"username"} label={REGISTER_USERNAME} type={"text"} />
+      <LabeledInput name={"firstName"} label={REGISTER_FIRST_NAME} type={"text"} />
+      <LabeledInput name={"lastName"} label={REGISTER_LAST_NAME} type={"text"} />
+      <LabeledInput name={"email"} label={REGISTER_EMAIL} type={"email"} />
+      <LabeledInput name={"address"} label={REGISTER_ADDRESS} type={"text"} />
+      <LabeledInput name={"password"} label={REGISTER_PASSWORD} type={"password"} />
+      <LabeledInput name={"confirmPassword"} label={REGISTER_CONFIRM_PASSWORD} type={"password"} />
+      <Button type={"submit"} variant={"primary"} className={"mx-auto"}>{REGISTER_BUTTON}</Button>
     </AuthForm>
   );
 }

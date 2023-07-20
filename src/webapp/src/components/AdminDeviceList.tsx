@@ -6,6 +6,32 @@ import {Alert, Button, Modal} from "react-bootstrap";
 import List from "./List";
 import {StatefulLabeledInput} from "./Forms";
 import {addSlot, removeSlot} from "../api/slot";
+import {
+  ADMIN_DASHBOARD_ADD_DEVICE_MODAL_SUBTITLE,
+  ADMIN_DASHBOARD_ADD_DEVICE_MODAL_TITLE,
+  ADMIN_DASHBOARD_DELETE_DEVICE_MODAL_CLOSE_BUTTON,
+  ADMIN_DASHBOARD_DELETE_DEVICE_MODAL_CONFIRM_BUTTON,
+  ADMIN_DASHBOARD_DELETE_DEVICE_MODAL_TITLE,
+  ADMIN_DASHBOARD_DEVICE_LIST_ADD_PLACEHOLDER,
+  ADMIN_DASHBOARD_DEVICE_LIST_DELETE_PLACEHOLDER,
+  ADMIN_DASHBOARD_DEVICE_LIST_ID,
+  ADMIN_DASHBOARD_DEVICE_LIST_LOCATION,
+  ADMIN_DASHBOARD_DEVICE_LIST_NAME,
+  ADMIN_DASHBOARD_DEVICE_LIST_SLOTS,
+  ADMIN_DASHBOARD_DEVICE_LIST_TITLE,
+  ADMIN_DASHBOARD_DEVICE_LIST_UPDATE_PLACEHOLDER,
+  ADMIN_DASHBOARD_DEVICE_LIST_UPDATE_SLOTS_PLACEHOLDER,
+  ADMIN_DASHBOARD_EXISTING_SLOTS,
+  ADMIN_DASHBOARD_SLOTS_MODAL_ADD_BUTTON,
+  ADMIN_DASHBOARD_SLOTS_MODAL_CLOSE_BUTTON,
+  ADMIN_DASHBOARD_SLOTS_MODAL_TITLE,
+  ADMIN_DASHBOARD_UPDATE_DEVICE_MODAL_CLOSE_BUTTON,
+  ADMIN_DASHBOARD_UPDATE_DEVICE_MODAL_CONFIRM_BUTTON,
+  ADMIN_DASHBOARD_UPDATE_DEVICE_MODAL_LOCATION,
+  ADMIN_DASHBOARD_UPDATE_DEVICE_MODAL_NAME,
+  ADMIN_DASHBOARD_UPDATE_DEVICE_MODAL_TITLE,
+  ERROR_UNCOMPLETED_FIELDS
+} from "../utils/text";
 
 interface DeviceDisplayProps {
   device: Device;
@@ -31,17 +57,17 @@ const DeviceDisplay: React.FC<DeviceDisplayProps> = (
       {opened && (
         <div className={style.details}>
           <div>
-            <p>ID - <i>{device.id}</i></p>
-            <p>Nume - <i>{device.name}</i></p>
-            <p>Locaţie - <i>{device.location}</i></p>
-            <p>Fante - <i>{device.slots.length}</i></p>
+            <p>{ADMIN_DASHBOARD_DEVICE_LIST_ID} - <i>{device.id}</i></p>
+            <p>{ADMIN_DASHBOARD_DEVICE_LIST_NAME} - <i>{device.name}</i></p>
+            <p>{ADMIN_DASHBOARD_DEVICE_LIST_LOCATION} - <i>{device.location}</i></p>
+            <p>{ADMIN_DASHBOARD_DEVICE_LIST_SLOTS} - <i>{device.slots.length}</i></p>
           </div>
           <div className={"d-flex flex-column gap-2"}>
             <Button
               variant="danger"
               data-toggle="tooltip"
               data-placement="top"
-              title="Şterge dispozitivul"
+              title={ADMIN_DASHBOARD_DEVICE_LIST_DELETE_PLACEHOLDER}
               onClick={() => {
                 setUpdateId(device.id);
                 setDeleteOpen(true);
@@ -53,7 +79,7 @@ const DeviceDisplay: React.FC<DeviceDisplayProps> = (
               variant="primary"
               data-toggle="tooltip"
               data-placement="top"
-              title="Actualizează dispozitivul"
+              title={ADMIN_DASHBOARD_DEVICE_LIST_UPDATE_PLACEHOLDER}
               onClick={() => {
                 setUpdateId(device.id);
                 setUpdateOpen(true);
@@ -65,7 +91,7 @@ const DeviceDisplay: React.FC<DeviceDisplayProps> = (
               variant="info"
               data-toggle="tooltip"
               data-placement="top"
-              title="Modifică fantele dispozitivului"
+              title={ADMIN_DASHBOARD_DEVICE_LIST_UPDATE_SLOTS_PLACEHOLDER}
               onClick={() => {
                 setUpdateId(device.id);
                 setShowSlots(true);
@@ -106,7 +132,7 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
     <>
       <Modal show={showSlots} onHide={() => setShowSlots(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Statusul fantelor</Modal.Title>
+          <Modal.Title>{ADMIN_DASHBOARD_SLOTS_MODAL_TITLE}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className={"pb-2 mb-2 border-bottom"}>
@@ -134,10 +160,10 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
                   }));
                 })
                 .catch(setCreateSlotError);
-            }}>Adaugă</Button>
+            }}>{ADMIN_DASHBOARD_SLOTS_MODAL_ADD_BUTTON}</Button>
           </div>
           <div>
-            <h4>Fantele existente</h4>
+            <h4>{ADMIN_DASHBOARD_EXISTING_SLOTS}</h4>
             <ul className={"d-flex flex-column gap-2"}>
               {devices.find((device) => device.id === updateId)?.slots.map((slot, index) => (
                 <li key={index}>
@@ -174,14 +200,14 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={() => setShowSlots(false)}>
-            Închide
+            {ADMIN_DASHBOARD_SLOTS_MODAL_CLOSE_BUTTON}
           </Button>
         </Modal.Footer>
       </Modal>
 
       <Modal show={showUpdate} onHide={() => setShowUpdate(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Actualizează dispozitivul</Modal.Title>
+          <Modal.Title>{ADMIN_DASHBOARD_UPDATE_DEVICE_MODAL_TITLE}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {updateError !== undefined && (
@@ -197,7 +223,7 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
           <StatefulLabeledInput
             type="text"
             name="name"
-            label="Nume"
+            label={ADMIN_DASHBOARD_UPDATE_DEVICE_MODAL_NAME}
             value={updateName}
             setValue={setUpdateName}
             className="mb-3"
@@ -205,7 +231,7 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
           <StatefulLabeledInput
             type="text"
             name="location"
-            label="Locaţie"
+            label={ADMIN_DASHBOARD_UPDATE_DEVICE_MODAL_LOCATION}
             value={updateLocation}
             setValue={setUpdateLocation}
           />
@@ -213,7 +239,7 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
         <Modal.Footer>
           <Button onClick={() => {
             if (updateName.length === 0 && updateLocation.length === 0) {
-              setCreateError(new Error("Trebuie să completezi toate câmpurile!"));
+              setCreateError(new Error(ERROR_UNCOMPLETED_FIELDS));
               return;
             }
 
@@ -221,37 +247,37 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
               .then(() => window.location.reload())
               .catch(setUpdateError);
           }}>
-            Confirmă
+            {ADMIN_DASHBOARD_UPDATE_DEVICE_MODAL_CONFIRM_BUTTON}
           </Button>
           <Button variant="danger" onClick={() => setShowUpdate(false)}>
-            Anulează
+            {ADMIN_DASHBOARD_UPDATE_DEVICE_MODAL_CLOSE_BUTTON}
           </Button>
         </Modal.Footer>
       </Modal>
 
       <Modal show={showDelete} onHide={() => setShowDelete(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Eşti sigur că vrei să ştergi dispozitivul</Modal.Title>
+          <Modal.Title>{ADMIN_DASHBOARD_DELETE_DEVICE_MODAL_TITLE}</Modal.Title>
         </Modal.Header>
         <Modal.Footer>
           <Button onClick={() => {
             deleteDevice(updateId)
               .then(() => window.location.reload());
           }}>
-            Confirmă
+            {ADMIN_DASHBOARD_DELETE_DEVICE_MODAL_CONFIRM_BUTTON}
           </Button>
           <Button variant="danger" onClick={() => setShowDelete(false)}>
-            Anulează
+            {ADMIN_DASHBOARD_DELETE_DEVICE_MODAL_CLOSE_BUTTON}
           </Button>
         </Modal.Footer>
       </Modal>
 
       <Modal show={showCreate} onHide={() => setShowCreate(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Adaugă un nou dispozitiv</Modal.Title>
+          <Modal.Title>{ADMIN_DASHBOARD_ADD_DEVICE_MODAL_TITLE}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p className={"text-center mb-3"}>Introdu informaţiile noului dispozitiv</p>
+          <p className={"text-center mb-3"}>{ADMIN_DASHBOARD_ADD_DEVICE_MODAL_SUBTITLE}</p>
           {createError !== undefined && (
             <Alert
               variant="danger"
@@ -296,9 +322,12 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
         </Modal.Footer>
       </Modal>
 
-      <List title="Dispozitive">
+      <List title={ADMIN_DASHBOARD_DEVICE_LIST_TITLE}>
         <div className={style.controlButtons}>
           <Button
+            data-toggle="tooltip"
+            data-placement="top"
+            title={ADMIN_DASHBOARD_DEVICE_LIST_ADD_PLACEHOLDER}
             className={style.controlButton}
             onClick={() => setShowCreate(true)}
           >
