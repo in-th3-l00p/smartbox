@@ -125,7 +125,6 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
   const [updateLocation, setUpdateLocation] = useState<string>("");
   const [updateError, setUpdateError] = useState<Error>();
   const [showSlots, setShowSlots] = useState<boolean>(false);
-  const [slotCapacity, setSlotCapacity] = useState<string>("");
   const [createSlotError, setCreateSlotError] = useState<Error>();
 
   return (

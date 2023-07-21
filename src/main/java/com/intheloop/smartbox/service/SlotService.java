@@ -22,9 +22,7 @@ public class SlotService {
 
     public Slot get(Long slotId) {
         var slot = slotRepository.findById(slotId);
-        if (slot.isEmpty())
-            throw new SlotNotFoundException();
-        return slot.get();
+        return slot.orElseThrow(SlotNotFoundException::new);
     }
 
     public void updateCapacity(Slot slot, Double volume) {

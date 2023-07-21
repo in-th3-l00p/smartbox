@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import AuthForm from "../components/AuthForm";
 import {LabeledInput} from "../components/Forms";
 import {Button} from "react-bootstrap";
@@ -13,10 +13,15 @@ import {
   ERROR_SHROT_PASSWORD,
   ERROR_UNCOMPLETED_FIELDS
 } from "../utils/text";
+import {Navigate} from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 const ChangePassword = () => {
+    const auth = useContext(AuthContext);
     const [error, setError] = useState<Error>();
 
+    if (!auth.isAuthenticated)
+      return <Navigate to={"/login"} replace={true} />
     return (
         <AuthForm
             title={CHANGE_PASSWORD_TITLE}

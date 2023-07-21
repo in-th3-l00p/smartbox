@@ -4,7 +4,7 @@ import {Alert, Button, Container} from "react-bootstrap";
 import style from "./../styles/Profile.module.scss";
 import {StatefulLabeledInput} from "../components/Forms";
 import AuthContext from "../context/AuthContext";
-import {useSearchParams} from "react-router-dom";
+import {Navigate, useSearchParams} from "react-router-dom";
 import {
   PROFILE_ADDRESS,
   PROFILE_CHANGE_PASSWORD_BUTTON,
@@ -48,6 +48,8 @@ const Profile = () => {
     setFields();
   }, [])
 
+  if (!auth.isAuthenticated)
+    return <Navigate to={"/login"} replace={true} />
   return (
     <>
       <h1 className={style.title}>{PROFILE_TITLE}</h1>

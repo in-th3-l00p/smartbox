@@ -37,7 +37,7 @@ const DeviceLogDisplay: React.FC<{deviceLog: DeviceLog}> = ({ deviceLog }) => {
 
 const AdminDeviceLogList = () => {
   const [logs, setLogs] = useState<DeviceLog[]>([]);
-  const [loading, _] = useQuery(async () => {
+  const [_loading, _error] = useQuery(async () => {
     setLogs(await getAllDeviceLogs());
   });
 

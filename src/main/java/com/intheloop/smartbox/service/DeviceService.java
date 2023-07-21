@@ -47,16 +47,12 @@ public class DeviceService {
 
     public Device get(Long id) {
         var device = deviceRepository.findById(id);
-        if (device.isEmpty())
-            throw new DeviceNotFoundException();
-        return device.get();
+        return device.orElseThrow(DeviceNotFoundException::new);
     }
 
     public Device get(String name) {
         var device = deviceRepository.findByName(name);
-        if (device.isEmpty())
-            throw new DeviceNotFoundException();
-        return device.get();
+        return device.orElseThrow(DeviceNotFoundException::new);
     }
 
     public void delete(Long id) {

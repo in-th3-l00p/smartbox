@@ -1,5 +1,5 @@
 import React from "react";
-import {FloatingLabel, Form} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 
 interface LabeledInputProps {
   name: string;
@@ -18,16 +18,14 @@ export const LabeledInput: React.FC<LabeledInputProps> = ({
   className=""
 }) => {
   return (
-    <FloatingLabel
-      controlId={name}
-      label={label}
-      className={className}
-    >
+    <Form.Group className={className}>
+      <Form.Label>{label}</Form.Label>
       <Form.Control
+        name={name}
         type={type}
         placeholder={placeholder}
       />
-    </FloatingLabel>
+    </Form.Group>
   );
 }
 
@@ -47,12 +45,10 @@ export const StatefulLabeledInput: React.FC<StatefulLabeledInputProps> = ({
   className=""
 }) => {
   return (
-    <FloatingLabel
-      controlId={name}
-      label={label}
-      className={className}
-    >
+    <Form.Group className={className}>
+      <Form.Label>{label}</Form.Label>
       <Form.Control
+        name={name}
         type={type}
         placeholder={placeholder}
         value={value}
@@ -62,7 +58,7 @@ export const StatefulLabeledInput: React.FC<StatefulLabeledInputProps> = ({
         }}
         readOnly={readOnly}
       />
-    </FloatingLabel>
+    </Form.Group>
   );
 }
 
@@ -84,17 +80,15 @@ export const LabeledTextArea: React.FC<LabeledTextAreaProps> = ({
   style={}
 }) => {
   return (
-    <FloatingLabel
-      controlId={name}
-      label={label}
-      className={className}
-    >
+    <Form.Group className={className}>
+      <Form.Label>{label}</Form.Label>
       <Form.Control
+        name={name}
         as={"textarea"}
         placeholder={placeholder}
         readOnly={readOnly}
         style={style}
       />
-    </FloatingLabel>
+    </Form.Group>
   );
 }

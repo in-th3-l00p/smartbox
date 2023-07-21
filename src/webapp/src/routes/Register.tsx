@@ -24,7 +24,7 @@ import {
 const Register = () => {
   const [error, setError] = useState<Error>();
 
-  const [queryLoading, queryError] = useQuery(async () => {
+  const [queryLoading, _] = useQuery(async () => {
     if (await isAuthenticated())
       window.location.href = "/";
   });

@@ -42,3 +42,11 @@ export interface DeviceLog {
   createdDate: string;
   device: Device;
 }
+
+export interface Contact {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  message: string;
+}
