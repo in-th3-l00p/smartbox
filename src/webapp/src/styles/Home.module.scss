@@ -1,0 +1,64 @@
+@import "constants.scss";
+
+.homeContent {
+  $carousel-height: 600px;
+  $carousel-image-brightness: 0.5;
+  $render-duration: 1s;
+
+  .carousel {
+    height: $carousel-height;
+
+    animation: onCarouselRender $render-duration ease-in-out;
+    filter: brightness($carousel-image-brightness);
+    .carouselImage {
+      width: 100vw;
+      height: $carousel-height;
+      object-fit: cover;
+    }
+
+    @keyframes onCarouselRender {
+      from {
+        filter: brightness(1.0);
+      }
+      to {
+        filter: brightness($carousel-image-brightness);
+      }
+    }
+  }
+
+  .carouselCaption {
+    text-align: center;
+    color: $primary-white;
+
+    position: absolute;
+    top: calc($carousel-height / 2);
+    left: 50%;
+    transform: translateX(-50%);
+
+    h1 {
+      font-weight: bold;
+      padding-bottom: 10px;
+      border-bottom: 1px solid $primary-white;
+    }
+
+    animation: onCarouselCaptionRender $render-duration ease-in-out;
+  }
+
+  @keyframes onCarouselCaptionRender {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  $text-container-radius: 10px;
+  .textContainer {
+    padding: 30px;
+    margin-block: 30px;
+    background-color: $primary-white;
+    overflow-wrap: break-word;
+
+    border-radius: $text-container-radius;
+    @media screen and (max-width: $breakpoint-sm) {
+      border-radius: 0;
+    }
+  }
+}

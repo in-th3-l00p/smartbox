@@ -19,7 +19,7 @@ public class Card extends AbstractAuditingEntity<Long> {
     @ManyToOne
     private Device device;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "card")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "card")
     private Set<Transaction> transactions = new HashSet<>();
 
     public Card() {

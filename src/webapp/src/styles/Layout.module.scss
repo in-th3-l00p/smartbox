@@ -1,10 +1,53 @@
 @import "constants.scss";
 
 .navbar {
-  background-color: $primary-red !important;
+  background-color: $primary-white !important;
 }
 
 .mainContainer {
   background-color: $secondary-white;
-  padding: 0 0.5rem;
+}
+
+.footer {
+  background-color: $primary-black;
+  color: $secondary-white;
+  text-align: center;
+
+  .line {
+    display: block;
+    background-color: $secondary-white;
+    height: 1px;
+    width: 40%;
+    margin-inline: auto;
+    margin-block: 10px;
+  }
+
+  @mixin link {
+    color: $secondary-white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      font-style: italic;
+    }
+  }
+
+  .account { @include link; }
+  .links {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    a { @include link; }
+  }
+
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+    img {
+      aspect-ratio: 1/1;
+      width: 40px;
+    }
+  }
 }

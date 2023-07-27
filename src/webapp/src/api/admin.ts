@@ -1,7 +1,7 @@
-import { User } from "../types/dtos";
+import {User} from "../utils/dtos";
 import api from "../utils/api";
-import { getAuthenticationHeader } from "../utils/auth";
-import { isAuthenticated } from "./authenticate";
+import {getAuthenticationHeader} from "../utils/auth";
+import {isAuthenticated} from "./authenticate";
 
 // returns all the users that are registered
 export async function getUsers(): Promise<User[]> {

@@ -12,9 +12,9 @@ export async function register(
   password: string
 ) {
   try {
-    const response = await api.post("/register", {
+    await api.post("/register", {
       login: username, firstName, lastName, address, email, password
-    })
+    });
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status == 400)
       throw new Error(error.response.data.detail || "Completarea datelor a fost incorectă.");

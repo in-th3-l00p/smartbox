@@ -13,8 +13,11 @@ public class Transaction extends AbstractAuditingEntity<Long> {
     @ManyToOne
     private Card card;
 
-    @Column(name = "capacity", unique = true, nullable = false)
-    private Double capacity;
+    @ManyToOne
+    private Slot slot;
+
+    @Column(name = "volume", nullable = false)
+    private Double volume;
 
     public Transaction() {
     }
@@ -36,11 +39,19 @@ public class Transaction extends AbstractAuditingEntity<Long> {
         this.card = card;
     }
 
-    public Double getCapacity() {
-        return capacity;
+    public Slot getSlot() {
+        return slot;
     }
 
-    public void setCapacity(Double capacity) {
-        this.capacity = capacity;
+    public void setSlot(Slot slot) {
+        this.slot = slot;
+    }
+
+    public Double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Double volume) {
+        this.volume = volume;
     }
 }

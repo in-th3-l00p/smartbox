@@ -2,6 +2,9 @@ package com.intheloop.smartbox.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table
 public class Device {
@@ -15,6 +18,19 @@ public class Device {
 
     @Column(name = "location", nullable = false)
     private String location;
+
+    @OneToMany(
+        cascade = CascadeType.REMOVE,
+        mappedBy = "device",
+        fetch = FetchType.EAGER
+    )
+    private Set<Slot> slots = new HashSet<>();
+
+    @OneToMany(mappedBy = "device")
+    private Set<Card> cards = new HashSet<>();
+
+    @OneToMany(mappedBy = "device", cascade = CascadeType.REMOVE)
+    private Set<DeviceLog> deviceLogs = new HashSet<>();
 
     public Device() {
     }
@@ -41,5 +57,29 @@ public class Device {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
+
+    public Set<Slot> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(Set<Slot> slots) {
+        this.slots = slots;
+    }
+
+    public Set<DeviceLog> getDeviceLogs() {
+        return deviceLogs;
+    }
+
+    public void setDeviceLogs(Set<DeviceLog> deviceLogs) {
+        this.deviceLogs = deviceLogs;
     }
 }

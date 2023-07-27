@@ -2,6 +2,7 @@ package com.intheloop.smartbox.service;
 
 import com.intheloop.smartbox.domain.Device;
 import com.intheloop.smartbox.repository.DeviceRepository;
+import com.intheloop.smartbox.repository.SlotRepository;
 import com.intheloop.smartbox.web.rest.errors.BadRequestAlertException;
 import com.intheloop.smartbox.web.rest.errors.DeviceNameAlreadyUsedException;
 import com.intheloop.smartbox.web.rest.errors.DeviceNotFoundException;
@@ -16,9 +17,12 @@ import java.util.List;
 public class DeviceService {
     private final Logger log = LoggerFactory.getLogger(DeviceService.class);
     private final DeviceRepository deviceRepository;
+    private final SlotRepository slotRepository;
 
-    public DeviceService(DeviceRepository deviceRepository) {
+    public DeviceService(DeviceRepository deviceRepository,
+                         SlotRepository slotRepository) {
         this.deviceRepository = deviceRepository;
+        this.slotRepository = slotRepository;
     }
 
     public Device create(String name, String location) {
@@ -43,16 +47,12 @@ public class DeviceService {
 
     public Device get(Long id) {
         var device = deviceRepository.findById(id);
-        if (device.isEmpty())
-            throw new IllegalArgumentException();
-        return device.get();
+        return device.orElseThrow(DeviceNotFoundException::new);
     }
 
     public Device get(String name) {
         var device = deviceRepository.findByName(name);
-        if (device.isEmpty())
-            throw new IllegalArgumentException();
-        return device.get();
+        return device.orElseThrow(DeviceNotFoundException::new);
     }
 
     public void delete(Long id) {
