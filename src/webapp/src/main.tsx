@@ -17,6 +17,10 @@ import LoadingSpinner from './components/LoadingSpinner';
 import ChangePassword from './routes/ChangePassword';
 import About from "./routes/About";
 import Contact from "./routes/Contact";
+import UserReport from "./routes/report/UserReport";
+import DeviceReport from "./routes/report/DeviceReport";
+import UserDeviceReport from "./routes/report/UserDeviceReport";
+import {AxiosError} from "axios";
 
 const router = createBrowserRouter([
   {
@@ -53,16 +57,36 @@ const router = createBrowserRouter([
     path: "/contact",
     element: <Contact />
   },
+  {
+    path: "/reports/users/:id",
+    element: <UserReport />
+  },
+  {
+    path: "/reports/devices/:id",
+    element: <DeviceReport />
+  },
+  {
+    path: "/reports/userDevices/:id",
+    element: <UserDeviceReport />
+  }
 ]);
 
 const App = () => {
   const [authenticated, setAuthenticated] = React.useState<boolean>(false);
   const [user, setUser] = React.useState<User>({} as User);
   const [loading, _] = useQuery(async () => {
+    if (localStorage.getItem("token") === null)
+      return;
     try {
       setUser(await getCurrentUserDetails());
       setAuthenticated(true);
-    } catch (e) { }
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        localStorage.clear();
+        setAuthenticated(false);
+        window.location.reload();
+      }
+    }
   });
 
   if (loading)

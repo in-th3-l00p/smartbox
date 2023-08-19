@@ -1,7 +1,6 @@
 import api from "../utils/api";
 import {AxiosError} from "axios";
 import {isAuthenticated} from "./authenticate";
-import {getAuthenticationHeader} from "../utils/auth";
 
 export async function register(
   username: string,
@@ -27,10 +26,7 @@ export async function getCurrentUserDetails() {
   if (!(await isAuthenticated()))
     throw new Error("Nu eşti autentificat.");
   try {
-    const response = await api.get(
-      "/account",
-      {headers: getAuthenticationHeader()}
-    );
+    const response = await api.get("/account");
     return response.data;
   } catch (error) {
     throw new Error("Eroare în cadrul serverului. Vă rugăm să încercați mai târziu.");
@@ -49,8 +45,7 @@ export async function updateCurrentUser(
   try {
     const response = await api.post(
       "/account",
-      {login, firstName, lastName, address, email},
-      {headers: getAuthenticationHeader()}
+      {login, firstName, lastName, address, email}
     );
     return response.data;
   } catch (error) {
@@ -74,8 +69,7 @@ export async function changeCurrentUserPassword(
   try {
     const response = await api.post(
       "/account/change-password",
-      {currentPassword, newPassword},
-      {headers: getAuthenticationHeader()}
+      {currentPassword, newPassword}
     );
     return response.data;
   } catch (error) {

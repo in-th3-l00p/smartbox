@@ -1,0 +1,181 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="intheloop (generated)" id="1690620701746-52">
+        <createTable tableName="card_slots">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="card_slotsPK"/>
+            </column>
+            <column name="value" type="FLOAT(53)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="card_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slot_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-53">
+        <createTable tableName="device_reports">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="device_reportsPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime(6)"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="datetime(6)"/>
+            <column name="device_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_location" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-54">
+        <createTable tableName="report_slots">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="report_slotsPK"/>
+            </column>
+            <column name="slot_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="volume" type="FLOAT(53)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_report_id" type="BIGINT"/>
+            <column name="user_report_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-55">
+        <createTable tableName="report_users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="report_usersPK"/>
+            </column>
+            <column name="address" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="card_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="login" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_device_report_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-56">
+        <createTable tableName="user_device_report">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_device_reportPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime(6)"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="datetime(6)"/>
+            <column name="device_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_location" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-57">
+        <createTable tableName="user_device_report_users">
+            <column name="user_device_report_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_device_report_usersPK"/>
+            </column>
+            <column name="users_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_device_report_usersPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-58">
+        <createTable tableName="user_reports">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_reportsPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime(6)"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="datetime(6)"/>
+            <column name="card_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_address" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-59">
+        <addUniqueConstraint columnNames="id" constraintName="UC_USER_DEVICE_REPORTID_COL" tableName="user_device_report"/>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-60">
+        <addUniqueConstraint columnNames="users_id" constraintName="UK_i9vwd0kcwe7c75xhucji2jnsv" tableName="user_device_report_users"/>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-61">
+        <addForeignKeyConstraint baseColumnNames="card_id" baseTableName="card_slots" constraintName="FK1c34n8fpv7vglovoxeborlbk0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="card" validate="true"/>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-62">
+        <addForeignKeyConstraint baseColumnNames="device_report_id" baseTableName="report_slots" constraintName="FK2f99vtu02lx2kivhfmtepwb8f" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="device_reports" validate="true"/>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-63">
+        <addForeignKeyConstraint baseColumnNames="users_id" baseTableName="user_device_report_users" constraintName="FK5tk1wk138dav1t07l942jh5e1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="report_users" validate="true"/>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-64">
+        <addForeignKeyConstraint baseColumnNames="user_device_report_id" baseTableName="user_device_report_users" constraintName="FKiy5ud8tlwl0v3o4danjsk7bdv" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user_device_report" validate="true"/>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-65">
+        <addForeignKeyConstraint baseColumnNames="user_report_id" baseTableName="report_slots" constraintName="FKl8uvcfuj0v10ddsvaxmwakt68" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user_reports" validate="true"/>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-66">
+        <addForeignKeyConstraint baseColumnNames="user_device_report_id" baseTableName="report_users" constraintName="FKmtei27ya1k8aoekqt8qul0a2o" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user_device_report" validate="true"/>
+    </changeSet>
+    <changeSet author="intheloop (generated)" id="1690620701746-67">
+        <addForeignKeyConstraint baseColumnNames="slot_id" baseTableName="card_slots" constraintName="FKpwitmratb9apr3ogospkg7f70" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="slot" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

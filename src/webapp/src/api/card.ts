@@ -1,6 +1,5 @@
 import api from "../utils/api";
 import {isAuthenticated} from "./authenticate";
-import {getAuthenticationHeader} from "../utils/auth";
 
 export async function createCard(userId: number, deviceId: number) {
   if (!(await isAuthenticated()))
@@ -10,7 +9,6 @@ export async function createCard(userId: number, deviceId: number) {
       "/admin/card",
       {},
       {
-        headers: getAuthenticationHeader(),
         params: {userId, deviceId}
       }
     );
@@ -28,7 +26,6 @@ export async function updateCard(cardId: number, deviceId: number) {
       `/admin/card/${cardId}`,
       {},
       {
-        headers: getAuthenticationHeader(),
         params: {deviceId}
       }
     );
@@ -42,10 +39,7 @@ export async function deleteCard(cardId: number) {
   if (!(await isAuthenticated()))
     throw new Error("Nu eşti autentificat.");
   try {
-    await api.delete(
-      `/admin/card/${cardId}`,
-      {headers: getAuthenticationHeader()}
-    );
+    await api.delete(`/admin/card/${cardId}`);
   } catch (error) {
     throw new Error("Eroare în cadrul serverului. Vă rugăm să încercați mai târziu.");
   }

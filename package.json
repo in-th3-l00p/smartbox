@@ -54,5 +54,8 @@
   },
   "cacheDirectories": [
     "node_modules"
-  ]
+  ],
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
 }

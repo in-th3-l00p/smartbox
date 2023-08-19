@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Device} from "../utils/dtos";
-import {createDevice, deleteDevice, updateDevice} from "../api/device";
+import {createDevice, deleteDevice, getDevices, updateDevice} from "../api/device";
 import style from "../styles/Dashboard.module.scss";
 import {Alert, Button, Modal} from "react-bootstrap";
 import List from "./List";
@@ -124,7 +124,9 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
   const [updateName, setUpdateName] = useState<string>("");
   const [updateLocation, setUpdateLocation] = useState<string>("");
   const [updateError, setUpdateError] = useState<Error>();
+
   const [showSlots, setShowSlots] = useState<boolean>(false);
+  const [slotName, setSlotName] = useState<string>("");
   const [createSlotError, setCreateSlotError] = useState<Error>();
 
   return (
@@ -144,30 +146,60 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
                 {createSlotError.message}
               </Alert>
             )}
-            <Button onClick={() => {
-              addSlot(updateId)
-                .then(slot => {
-                  const newDevices = [...devices];
-                  setDevices(newDevices.map((device) => {
-                    if (device.id === updateId) {
-                      return {
-                        ...device,
-                        slots: [...device.slots, slot]
+            <StatefulLabeledInput
+              value={slotName}
+              setValue={setSlotName}
+              name={"slotName"}
+              label={"Numele fantei"}
+              type={"text"}
+              className={"mb-3"}
+            />
+            <Button
+              disabled={slotName.length === 0}
+              onClick={() => {
+                addSlot(slotName, updateId)
+                  .then(slot => {
+                    const newDevices = [...devices];
+                    setDevices(newDevices.map((device) => {
+                      if (device.id === updateId) {
+                        return {
+                          ...device,
+                          slots: [...device.slots, slot]
+                        }
                       }
-                    }
-                    return device;
-                  }));
-                })
-                .catch(setCreateSlotError);
-            }}>{ADMIN_DASHBOARD_SLOTS_MODAL_ADD_BUTTON}</Button>
+                      return device;
+                    }));
+                  })
+                  .catch(setCreateSlotError);
+              }
+            }>
+              {ADMIN_DASHBOARD_SLOTS_MODAL_ADD_BUTTON}
+            </Button>
           </div>
           <div>
-            <h4>{ADMIN_DASHBOARD_EXISTING_SLOTS}</h4>
-            <ul className={"d-flex flex-column gap-2"}>
+            <div className={"d-flex justify-content-between align-items-center mb-3"}>
+              <h4>{ADMIN_DASHBOARD_EXISTING_SLOTS}</h4>
+              <Button
+                variant={"secondary"}
+                style={{borderRadius: "50%", aspectRatio: "1/1"}}
+                onClick={() => {
+                  getDevices()
+                    .then(devices => {
+                      devices.forEach(device =>
+                        device.slots.sort((a, b) => a.id - b.id)
+                      );
+                      setDevices(devices);
+                    });
+                }}
+              >
+                <i className="bi bi-arrow-clockwise"></i>
+              </Button>
+            </div>
+            <ol className={"d-flex flex-column gap-2"}>
               {devices.find((device) => device.id === updateId)?.slots.map((slot, index) => (
                 <li key={index}>
                   <div className={"d-flex flex-row justify-content-between align-items-center"}>
-                    <p>Fanta {index + 1} - Volum: {slot.volume}</p>
+                    <p>Fanta {slot.name} - Volum: {slot.volume}</p>
                     <Button
                       variant="danger"
                       data-toggle="tooltip"
@@ -194,7 +226,7 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
                   </div>
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -332,7 +364,22 @@ const AdminDeviceList: React.FC<AdminDeviceListProps> = ({ devices, setDevices }
           >
             <i className="bi bi-plus-circle"></i>
           </Button>
+          <Button
+            variant={"secondary"}
+            className={"ms-auto"}
+            style={{borderRadius: "50%", aspectRatio: "1/1"}}
+            onClick={() => {
+              getDevices().then(setDevices);
+            }}
+          >
+            <i className="bi bi-arrow-clockwise"></i>
+          </Button>
         </div>
+        {(devices.length === 0) && (
+          <div className={"w-100 h-100 d-flex justify-content-center align-items-center"}>
+            <h1 className={"my-auto mx-auto text-center"}>Nu exisă niciun dispozitiv</h1>
+          </div>
+        )}
         {devices.map((device, index) => (
           <li key={index}>
             <DeviceDisplay

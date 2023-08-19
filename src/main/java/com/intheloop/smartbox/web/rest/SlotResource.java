@@ -6,7 +6,6 @@ import com.intheloop.smartbox.service.SlotService;
 import com.intheloop.smartbox.service.dto.SlotDTO;
 import com.intheloop.smartbox.web.rest.errors.DeviceNameAlreadyUsedException;
 import com.intheloop.smartbox.web.rest.errors.SlotNotFoundException;
-import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,16 +23,17 @@ public class SlotResource {
     /**
      * {@code POST /api/admin/slot/{deviceId}} : Create a new slot
      * @param deviceId : device id
+     * @param name : slot name
      * @throws DeviceNameAlreadyUsedException if the given name is already used, with status {@code 404 (NOT FOUND)}
      */
-    @PostMapping(
-        path = "/{deviceId}",
-        consumes = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PostMapping("/{deviceId}")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public SlotDTO createSlot(@PathVariable Long deviceId) {
+    public SlotDTO createSlot(
+        @PathVariable Long deviceId,
+        @RequestParam("name") String name
+    ) {
         var device = deviceService.get(deviceId);
-        return new SlotDTO(slotService.create(device));
+        return new SlotDTO(slotService.create(name, device));
     }
 
     /**

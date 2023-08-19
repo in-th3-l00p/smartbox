@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="1690545528441-1" author="intheloop (generated)">
+        <addColumn tableName="slot">
+            <column name="name" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1690545528441-2" author="intheloop (generated)">
+        <addNotNullConstraint columnDataType="VARCHAR(255)" columnName="name" tableName="slot"/>
+    </changeSet>
+    <changeSet id="1690545528441-3" author="intheloop (generated)">
+        <dropTable cascadeConstraints="true" tableName="jhi_date_time_wrapper"/>
+    </changeSet>
+
+</databaseChangeLog>

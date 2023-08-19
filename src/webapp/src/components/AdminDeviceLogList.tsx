@@ -37,7 +37,7 @@ const DeviceLogDisplay: React.FC<{deviceLog: DeviceLog}> = ({ deviceLog }) => {
 
 const AdminDeviceLogList = () => {
   const [logs, setLogs] = useState<DeviceLog[]>([]);
-  const [_loading, _error] = useQuery(async () => {
+  const [loading, _error] = useQuery(async () => {
     setLogs(await getAllDeviceLogs());
   });
 
@@ -50,6 +50,11 @@ const AdminDeviceLogList = () => {
 
   return (
     <List title={"Mesaje dispozitiv"}>
+      {(logs.length === 0 && !loading) && (
+        <div className={"w-100 h-100 d-flex justify-content-center align-items-center"}>
+          <h1 className={"my-auto mx-auto text-center"}>Nu a fost trimis niciun mesaj</h1>
+        </div>
+      )}
       {logs.map(transaction => (
         <DeviceLogDisplay
           key={transaction.id}

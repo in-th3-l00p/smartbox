@@ -4,7 +4,7 @@ import com.intheloop.smartbox.domain.Card;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Objects;
+import java.util.List;
 
 /**
  * DTO for {@link com.intheloop.smartbox.domain.Card}
@@ -17,16 +17,7 @@ public class CardDTO implements Serializable {
     private final Long id;
     private final Long userId;
     private final DeviceDTO device;
-
-    public CardDTO(String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate, Long id, Long userId, DeviceDTO device) {
-        this.createdBy = createdBy;
-        this.createdDate = createdDate;
-        this.lastModifiedBy = lastModifiedBy;
-        this.lastModifiedDate = lastModifiedDate;
-        this.id = id;
-        this.userId = userId;
-        this.device = device;
-    }
+    private final List<CardSlotDTO> cardSlots;
 
     public CardDTO(Card card) {
         this.createdBy = card.getCreatedBy();
@@ -36,6 +27,7 @@ public class CardDTO implements Serializable {
         this.id = card.getId();
         this.userId = card.getUser().getId();
         this.device = new DeviceDTO(card.getDevice());
+        this.cardSlots = card.getCardSlots().stream().map(CardSlotDTO::new).toList();
     }
 
     public String getCreatedBy() {
@@ -66,29 +58,7 @@ public class CardDTO implements Serializable {
         return device;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CardDTO cardDTO = (CardDTO) o;
-        return Objects.equals(createdBy, cardDTO.createdBy) && Objects.equals(createdDate, cardDTO.createdDate) && Objects.equals(lastModifiedBy, cardDTO.lastModifiedBy) && Objects.equals(lastModifiedDate, cardDTO.lastModifiedDate) && Objects.equals(id, cardDTO.id) && Objects.equals(userId, cardDTO.userId) && Objects.equals(device, cardDTO.device);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(createdBy, createdDate, lastModifiedBy, lastModifiedDate, id, userId, device);
-    }
-
-    @Override
-    public String toString() {
-        return "CardDTO{" +
-            "createdBy='" + createdBy + '\'' +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
-            ", id=" + id +
-            ", userId=" + userId +
-            ", device=" + device +
-            '}';
+    public List<CardSlotDTO> getCardSlots() {
+        return cardSlots;
     }
 }

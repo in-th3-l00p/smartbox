@@ -9,15 +9,18 @@ import java.io.Serializable;
  */
 public class SlotDTO implements Serializable {
     private final Long id;
+    private final String name;
     private final Double volume;
 
-    public SlotDTO(Long id, Double volume) {
+    public SlotDTO(Long id, String name, Double volume) {
         this.id = id;
+        this.name = name;
         this.volume = volume;
     }
 
     public SlotDTO(Slot slot) {
         this.id = slot.getId();
+        this.name = slot.getName();
         this.volume = slot.getVolume();
     }
 
@@ -27,5 +30,9 @@ public class SlotDTO implements Serializable {
 
     public Double getVolume() {
         return volume;
+    }
+
+    public String getName() {
+        return name;
     }
 }

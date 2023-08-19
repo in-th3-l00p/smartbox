@@ -2,11 +2,12 @@ import React from "react";
 import style from "../styles/Dashboard.module.scss";
 
 const List: React.FC<{
+  className?: string;
   title: string;
   children?: JSX.Element | JSX.Element[] | any;
-}> = ({ title, children }) => {
+}> = ({ className, title, children }) => {
   return (
-    <div className={style.listContainer}>
+    <div className={style.listContainer + " " + className}>
       <h3 className={style.title}>{title}</h3>
       <ul className={style.content}>
         {children}

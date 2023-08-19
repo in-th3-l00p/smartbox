@@ -14,7 +14,7 @@ export const TransactionDisplay: React.FC<{transaction: Transaction}> = ({ trans
         className={style.principalInfo}
         onClick={() => setOpened(!opened)}
       >
-        <h4>Card ID: {transaction.card.id} - Slot ID: {transaction.slot.id}</h4>
+        <h4>Card ID: {transaction.card.id} - Slot: {transaction.slot.name}</h4>
         <p className={"ms-auto"}>{
           transaction
             .createdDate
@@ -25,6 +25,8 @@ export const TransactionDisplay: React.FC<{transaction: Transaction}> = ({ trans
       {opened && (
         <div className={style.details}>
           <div>
+            <p>ID slot: {transaction.slot.id}</p>
+            <p>Nume slot: {transaction.slot.name}</p>
             <p>Volum tranzactie: {transaction.volume}</p>
             <p>ID user: {transaction.card.userId}</p>
             <p>Nume dispozitiv: {transaction.card.device.name}</p>
@@ -51,6 +53,11 @@ const AdminTransactionList = () => {
 
   return (
     <List title={"Tranzacții"}>
+      {(transactions.length === 0 && !loading) && (
+        <div className={"w-100 h-100 d-flex justify-content-center align-items-center"}>
+          <h1 className={"my-auto mx-auto text-center"}>Nu a fost făcută nicio tranzacție</h1>
+        </div>
+      )}
       {transactions.map(transaction => (
         <TransactionDisplay
           key={transaction.id}

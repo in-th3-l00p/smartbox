@@ -22,6 +22,9 @@ public class Card extends AbstractAuditingEntity<Long> {
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "card")
     private Set<Transaction> transactions = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "card", cascade = CascadeType.REMOVE)
+    private Set<CardSlot> cardSlots = new HashSet<>();
+
     public Card() {
     }
 
@@ -56,5 +59,13 @@ public class Card extends AbstractAuditingEntity<Long> {
 
     public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public Set<CardSlot> getCardSlots() {
+        return cardSlots;
+    }
+
+    public void setCardSlots(Set<CardSlot> cardSlots) {
+        this.cardSlots = cardSlots;
     }
 }

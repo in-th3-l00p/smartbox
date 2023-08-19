@@ -1,6 +1,5 @@
 import api from "../utils/api";
 import {AxiosError} from "axios";
-import {getAuthenticationHeader} from "../utils/auth";
 
 export async function authenticate(username: string, password: string) {
   try {
@@ -28,7 +27,10 @@ export async function logout() {
 }
 
 export async function isAuthenticated() {
-  const username = await api
-    .get("/authenticate", {headers: getAuthenticationHeader()});
-  return !!username.data;
+  try {
+    const resp = await api.get("/authenticate");
+    return !!resp.data;
+  } catch (error) {
+    return false;
+  }
 }

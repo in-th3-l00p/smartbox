@@ -12,6 +12,9 @@ public class Slot {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "volume", nullable = false)
     private Double volume = 0.0;
 
@@ -20,6 +23,9 @@ public class Slot {
 
     @OneToMany(mappedBy = "slot", cascade = CascadeType.REMOVE)
     private Set<Transaction> transactions;
+
+    @OneToMany(mappedBy = "slot", cascade = CascadeType.REMOVE)
+    private Set<CardSlot> cardSlots;
 
     public Slot() {
     }
@@ -30,6 +36,14 @@ public class Slot {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getVolume() {
@@ -54,5 +68,13 @@ public class Slot {
 
     public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public Set<CardSlot> getCardSlots() {
+        return cardSlots;
+    }
+
+    public void setCardSlots(Set<CardSlot> cardSlots) {
+        this.cardSlots = cardSlots;
     }
 }

@@ -19,6 +19,12 @@ public class Device {
     @Column(name = "location", nullable = false)
     private String location;
 
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
+
     @OneToMany(
         cascade = CascadeType.REMOVE,
         mappedBy = "device",
@@ -26,12 +32,11 @@ public class Device {
     )
     private Set<Slot> slots = new HashSet<>();
 
-    @OneToMany(mappedBy = "device")
+    @OneToMany(mappedBy = "device", cascade = CascadeType.REMOVE)
     private Set<Card> cards = new HashSet<>();
 
     @OneToMany(mappedBy = "device", cascade = CascadeType.REMOVE)
     private Set<DeviceLog> deviceLogs = new HashSet<>();
-
     public Device() {
     }
 
@@ -57,6 +62,22 @@ public class Device {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public Set<Card> getCards() {

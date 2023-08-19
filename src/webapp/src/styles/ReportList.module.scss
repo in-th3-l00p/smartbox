@@ -1,0 +1,19 @@
+@import "constants.scss";
+
+.reportTab {
+  color: black !important;
+
+  &:hover {
+    background-color: $middle-white !important;
+  }
+}
+
+.active {
+  background-color: $lighter-bg !important;
+}
+
+.addReportButton {
+  position: relative;
+  bottom: 0;
+  right: 0;
+}

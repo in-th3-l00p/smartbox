@@ -50,7 +50,6 @@ public class DeviceResource {
         path = "/all",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<?> getAllDevices(@ParameterObject Pageable pageable) {
         return ResponseEntity.ok(deviceService
             .getDevices(pageable)

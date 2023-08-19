@@ -82,4 +82,10 @@ public class DeviceService {
                 () -> { throw new DeviceNotFoundException(); }
             );
     }
+
+    public void setCoordinates(Device device, Double latitude, Double longitude) {
+        device.setLatitude(latitude);
+        device.setLongitude(longitude);
+        deviceRepository.save(device);
+    }
 }

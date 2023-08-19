@@ -50,6 +50,13 @@ public class SecurityConfiguration {
                     .requestMatchers("/api/account/reset-password/init").permitAll()
                     .requestMatchers("/api/account/reset-password/finish").permitAll()
                     .requestMatchers("/api/public/**").permitAll()
+                    .requestMatchers(
+                        "/api/admin/device/all",
+                        "/api/admin/users"
+                    ).hasAnyAuthority(
+                        AuthoritiesConstants.ADMIN,
+                        AuthoritiesConstants.GENERATOR
+                    )
                     .requestMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
                     .requestMatchers("/api/**").authenticated()
                     .requestMatchers("/v3/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)

@@ -1,9 +1,9 @@
-export const APPLICATION_NAME = "INFOPUBELE";
+export const APPLICATION_NAME = "Infopubele.ro";
 
 // din caruselul de imagini
-export const HOME_PAGE_SUBTITLE = "COLECTĂM INTELIGENT";
-export const HOME_PAGE_CONTENT_TITLE = "titlu continut";
-export const HOME_PAGE_CONTENT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis nisi vel augue accumsan condimentum. Nullam dignissim velit eu magna aliquet ultricies. Nullam viverra ipsum augue, nec consectetur lorem luctus eu. Etiam pretium non lectus a ultrices. Sed finibus diam mi, non ultricies risus finibus id. Suspendisse fringilla, enim a pellentesque maximus, tellus nisl vulputate nibh, non placerat turpis arcu ac mauris. Etiam vel varius elit. Suspendisse ac dapibus quam. Nunc a elit nisi. Nulla sodales lorem ut vestibulum lobortis. Duis ut diam odio. Fusce eu dolor vehicula, condimentum metus id, posuere augue. ";
+export const HOME_PAGE_SUBTITLE = "Plăteşti cât arunci";
+export const HOME_PAGE_CONTENT_TITLE = "Reciclarea";
+export const HOME_PAGE_CONTENT = ``;
 
 export const HEADER_HOME = "Acasă";
 export const HEADER_ABOUT_US = "Despre noi";
@@ -14,7 +14,7 @@ export const HEADER_DASHBOARD = "Dashboard";
 export const HEADER_PROFILE = "Profil";
 export const HEADER_LOGOUT = "Deconectare";
 
-export const FOOTER_BUSINESS_INFOMRATION = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+export const FOOTER_BUSINESS_INFOMRATION = "Toate drepturile rezervate. © 2023";
 export const FOOTER_ANPC = "A.N.P.C.";
 export const FOOTER_TERMS_AND_CONDITIONS = "Termeni și condiții";
 export const FOOTER_PRIVACY_POLICY = "Prelucrarea datelor cu caracter personal";
@@ -68,8 +68,9 @@ export const ADMIN_DASHBOARD_USER_LIST_FIRST_NAME = "Prenume";
 export const ADMIN_DASHBOARD_USER_LIST_LAST_NAME = "Nume";
 export const ADMIN_DASHBOARD_USER_LIST_EMAIL = "Email";
 export const ADMIN_DASHBOARD_USER_LIST_ADDRESS = "Adresă";
-export const ADMIN_DASHBOARD_USER_LIST_CARD = "Card";
-export const ADMIN_DASHBOARD_USER_LIST_CARD_EMPTY = "nu are";
+export const ADMIN_DASHBOARD_USER_LIST_CARD = "Arondat pubelei";
+export const ADMIN_DASHBOARD_USER_LIST_AUTHORITY = "Rol";
+export const ADMIN_DASHBOARD_USER_LIST_CARD_EMPTY = "nu are card";
 export const ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_BUTTON_PLACEHOLDER = "Modifică card";
 export const ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_TITLE = "Status card";
 export const ADMIN_DASHBOARD_USER_LIST_UPDATE_CARD_MODAL_ID = "ID Card:";
