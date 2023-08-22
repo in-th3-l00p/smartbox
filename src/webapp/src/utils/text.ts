@@ -1,7 +1,7 @@
 export const APPLICATION_NAME = "Infopubele.ro";
 
 // din caruselul de imagini
-export const HOME_PAGE_SUBTITLE = "Plăteşti cât arunci";
+export const HOME_PAGE_SUBTITLE = "COLECTĂM INTELIGENT";
 export const HOME_PAGE_CONTENT_TITLE = "Reciclarea";
 export const HOME_PAGE_CONTENT = ``;
 
@@ -14,7 +14,7 @@ export const HEADER_DASHBOARD = "Dashboard";
 export const HEADER_PROFILE = "Profil";
 export const HEADER_LOGOUT = "Deconectare";
 
-export const FOOTER_BUSINESS_INFOMRATION = "Toate drepturile rezervate. © 2023";
+export const FOOTER_BUSINESS_INFOMRATION = "Infopubele.ro - Plătești cât arunci";
 export const FOOTER_ANPC = "A.N.P.C.";
 export const FOOTER_TERMS_AND_CONDITIONS = "Termeni și condiții";
 export const FOOTER_PRIVACY_POLICY = "Prelucrarea datelor cu caracter personal";
