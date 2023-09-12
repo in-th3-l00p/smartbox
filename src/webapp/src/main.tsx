@@ -21,6 +21,7 @@ import UserReport from "./routes/report/UserReport";
 import DeviceReport from "./routes/report/DeviceReport";
 import UserDeviceReport from "./routes/report/UserDeviceReport";
 import {AxiosError} from "axios";
+import {isAuthenticated} from "./api/authenticate";
 
 const router = createBrowserRouter([
   {
@@ -81,8 +82,8 @@ const App = () => {
       setUser(await getCurrentUserDetails());
       setAuthenticated(true);
     } catch (e) {
-      if (e instanceof AxiosError) {
-        localStorage.clear();
+      if (!(await isAuthenticated())) {
+        localStorage.removeItem("token");
         setAuthenticated(false);
         window.location.reload();
       }

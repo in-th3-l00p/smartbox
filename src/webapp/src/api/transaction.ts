@@ -6,8 +6,10 @@ export async function getAllTransactions() {
     throw new Error("Nu eşti autentificat.");
   try {
     const response = await api.get("/admin/transaction/all");
-
-    return response.data;
+    return response.data.map((transaction: any) => {
+      transaction.createdDate = new Date(transaction.createdDate);
+      return transaction;
+    });
   } catch (error) {
     throw new Error("Eroare în cadrul serverului. Vă rugăm să încercați mai târziu.");
   }
@@ -18,7 +20,9 @@ export async function getCurrentUserTransactions() {
     throw new Error("Nu eşti autentificat.");
   try {
     const response = await api.get("/transaction");
-    return response.data;
+    const transaction = response.data;
+    transaction.createdDate = new Date(transaction.createdDate);
+    return transaction;
   } catch (error) {
     throw new Error("Eroare în cadrul serverului. Vă rugăm să încercați mai târziu.");
   }

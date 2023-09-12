@@ -16,11 +16,9 @@ const DeviceLogDisplay: React.FC<{deviceLog: DeviceLog}> = ({ deviceLog }) => {
       >
         <h4>{deviceLog.log}</h4>
         <p className={"ms-auto"}>{
-          deviceLog
-            .createdDate
-            .replace("Z", " ")
-            .replace("T", " ")}
-        </p>
+          deviceLog.createdDate.toLocaleTimeString() + " " +
+          deviceLog.createdDate.toLocaleDateString()
+        }</p>
       </div>
       {opened && (
         <div className={style.details}>

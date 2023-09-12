@@ -29,7 +29,7 @@ export async function logout() {
 export async function isAuthenticated() {
   try {
     const resp = await api.get("/authenticate");
-    return !!resp.data;
+    return true;
   } catch (error) {
     return false;
   }

@@ -15,11 +15,9 @@ export const TransactionDisplay: React.FC<{transaction: Transaction}> = ({ trans
         onClick={() => setOpened(!opened)}
       >
         <h4>Card ID: {transaction.card.id} - Slot: {transaction.slot.name}</h4>
-        <p className={"ms-auto"}>{
-          transaction
-            .createdDate
-            .replace("Z", " ")
-            .replace("T", " ")}
+        <p className={"ms-auto"}>
+          {transaction.createdDate.toLocaleTimeString() + " " +
+            transaction.createdDate.toLocaleDateString()}
         </p>
       </div>
       {opened && (

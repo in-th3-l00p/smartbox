@@ -50,7 +50,7 @@ export interface Device {
 export interface Transaction {
   id: number;
   volume: number;
-  createdDate: string;
+  createdDate: Date;
   card: Card;
   slot: Slot;
 }
@@ -58,7 +58,7 @@ export interface Transaction {
 export interface DeviceLog {
   id: number;
   log: string;
-  createdDate: string;
+  createdDate: Date;
   device: Device;
 }
 

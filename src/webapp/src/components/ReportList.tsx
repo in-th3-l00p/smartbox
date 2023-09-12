@@ -21,7 +21,7 @@ const ReportDisplay: React.FC<{
   return (
     <div className={dstyle.element} onClick={() => window.location.href = href}>
       <div className={dstyle.principalInfo}>
-        <h4>{date.toUTCString()}</h4>
+        <h4>{date.toLocaleTimeString() + " " + date.toLocaleDateString()}</h4>
       </div>
     </div>
   );
