@@ -23,7 +23,8 @@ export async function register(
 
 // returns the details of the current authenticated user
 export async function getCurrentUserDetails() {
-  if (!(await isAuthenticated()))
+  const authenticated = await isAuthenticated();
+  if (!authenticated)
     throw new Error("Nu eşti autentificat.");
   try {
     const response = await api.get("/account");
