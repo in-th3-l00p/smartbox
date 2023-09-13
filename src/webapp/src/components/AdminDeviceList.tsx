@@ -99,6 +99,27 @@ const DeviceDisplay: React.FC<DeviceDisplayProps> = (
             >
               <i className="bi bi-archive" />
             </Button>
+            <Button
+              variant="primary"
+              data-toggle="tooltip"
+              data-placement="top"
+              title={"Status"}
+              onClick={() => window.location.href = "/admin/device/" + device.id}
+            >
+              <i className="bi bi-archive-fill"></i>
+            </Button>
+            <Button
+              variant="success"
+              data-toggle="tooltip"
+              data-placement="top"
+              title={"Carduri"}
+              onClick={() => {
+                setUpdateId(device.id);
+                setShowSlots(true);
+              }}
+            >
+              <i className="bi bi-person-vcard"></i>
+            </Button>
           </div>
         </div>
       )}

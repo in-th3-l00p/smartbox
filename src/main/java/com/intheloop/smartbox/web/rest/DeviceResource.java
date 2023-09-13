@@ -59,6 +59,21 @@ public class DeviceResource {
     }
 
     /**
+     * {@code GET /api/admin/device/{id}} : Gets a device
+     * @param id : device's id
+     * @return with status {@code 200 (OK)} and body of {@link DeviceDTO}
+     * @param id
+     * @return
+     */
+    @GetMapping(
+        path = "/{id}",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<?> getDevice(@PathVariable Long id) {
+        return ResponseEntity.ok(new DeviceDTO(deviceService.getDevice(id)));
+    }
+
+    /**
      * {@code DELETE /api/admin/{deviceId}} : deletes a device
      * @param deviceId : device's id
      */

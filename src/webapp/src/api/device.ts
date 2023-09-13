@@ -14,6 +14,17 @@ export async function getDevices(): Promise<Device[]> {
     }
 }
 
+export async function getDevice(id: number): Promise<Device> {
+    if (!(await isAuthenticated()))
+        throw new Error("Nu eşti autentificat.");
+    try {
+        const response = await api.get("/admin/device/" + id);
+        return response.data;
+    } catch (error) {
+        throw new Error("Eroare în cadrul serverului. Vă rugăm să încercați mai târziu.");
+    }
+}
+
 export async function createDevice(name: string, location: string) {
     if (!(await isAuthenticated()))
         throw new Error("Nu eşti autentificat.");

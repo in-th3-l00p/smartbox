@@ -45,6 +45,11 @@ public class DeviceService {
             .toList();
     }
 
+    public Device getDevice(Long id) {
+        var device = deviceRepository.findById(id);
+        return device.orElseThrow(DeviceNotFoundException::new);
+    }
+
     public Device get(Long id) {
         var device = deviceRepository.findById(id);
         return device.orElseThrow(DeviceNotFoundException::new);

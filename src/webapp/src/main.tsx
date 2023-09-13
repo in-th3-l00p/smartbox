@@ -20,8 +20,8 @@ import Contact from "./routes/Contact";
 import UserReport from "./routes/report/UserReport";
 import DeviceReport from "./routes/report/DeviceReport";
 import UserDeviceReport from "./routes/report/UserDeviceReport";
-import {AxiosError} from "axios";
 import {isAuthenticated} from "./api/authenticate";
+import AdminDeviceStatus from "./routes/AdminDeviceStatus";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +69,10 @@ const router = createBrowserRouter([
   {
     path: "/reports/userDevices/:id",
     element: <UserDeviceReport />
+  },
+  {
+    path: "/admin/device/:id",
+    element: <AdminDeviceStatus />
   }
 ]);
 
