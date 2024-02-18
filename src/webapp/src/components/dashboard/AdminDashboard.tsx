@@ -1,15 +1,15 @@
 import React, {useState} from "react";
 import {Col, Container, Row} from "react-bootstrap";
-import AdminUserList from "./AdminUserList";
-import AdminDeviceList from "./AdminDeviceList";
-import {Device, User} from "../utils/dtos";
-import useQuery from "../hooks/useQuery";
-import {getDevices} from "../api/device";
-import LoadingSpinner from "./LoadingSpinner";
-import AdminTransactionList from "./AdminTransactionList";
-import AdminDeviceLogList from "./AdminDeviceLogList";
-import ReportList from "./ReportList";
-import {getUsers} from "../api/admin";
+import AdminUserList from "../AdminUserList";
+import AdminDeviceList from "../AdminDeviceList";
+import {Device, User} from "../../utils/dtos";
+import useQuery from "../../hooks/useQuery";
+import {getDevices} from "../../api/device";
+import LoadingSpinner from "../LoadingSpinner";
+import AdminTransactionList from "../AdminTransactionList";
+import AdminDeviceLogList from "../AdminDeviceLogList";
+import ReportList from "../ReportList";
+import {getUsers} from "../../api/admin";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState<User[]>([]);

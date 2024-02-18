@@ -1,11 +1,11 @@
 import React, {useContext} from "react";
 import AuthContext from "../context/AuthContext";
-import AdminDashboard from "../components/AdminDashboard";
-import UserDashboard from "../components/UserDashboard";
+import AdminDashboard from "../components/dashboard/AdminDashboard";
+import UserDashboard from "../components/dashboard/UserDashboard";
 import {Carousel, CarouselItem, Container} from "react-bootstrap";
 import style from "../styles/Home.module.scss";
 import {APPLICATION_NAME, HOME_PAGE_CONTENT_TITLE, HOME_PAGE_SUBTITLE} from "../utils/text";
-import GeneratorDashboard from "../components/GeneratorDashboard";
+import GeneratorDashboard from "../components/dashboard/GeneratorDashboard";
 import DeviceMap from "../components/Map";
 
 const Home = () => {

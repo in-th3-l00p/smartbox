@@ -314,7 +314,7 @@ interface UserDisplayProps {
 const UserDisplay: React.FC<UserDisplayProps> = ({ user, setUpdateUser, setShowEditCard, setShowUpdateUser }) => {
   const [opened, setOpened] = useState<boolean>(false);
 
-  return (
+  return (  
     <div className={style.element}>
       <div
         className={style.principalInfo}

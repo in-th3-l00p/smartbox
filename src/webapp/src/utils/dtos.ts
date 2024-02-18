@@ -123,3 +123,10 @@ export interface DeviceCoordinate {
   latitude: number;
   longitude: number;
 }
+
+export interface Notification {
+  id: number;
+  deviceId: number;
+  slotId: number;
+  finished: boolean;
+}

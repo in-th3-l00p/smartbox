@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import {Device, User} from "../utils/dtos";
-import useQuery from "../hooks/useQuery";
-import {getDevices} from "../api/device";
-import {getUsers} from "../api/admin";
+import {Device, User} from "../../utils/dtos";
+import useQuery from "../../hooks/useQuery";
+import {getDevices} from "../../api/device";
+import {getUsers} from "../../api/admin";
 import {Col, Container, Row} from "react-bootstrap";
-import ReportList from "./ReportList";
+import ReportList from "../ReportList";
 
 const GeneratorDashboard: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);

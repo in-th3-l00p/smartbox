@@ -22,6 +22,7 @@ import DeviceReport from "./routes/report/DeviceReport";
 import UserDeviceReport from "./routes/report/UserDeviceReport";
 import {isAuthenticated} from "./api/authenticate";
 import AdminDeviceStatus from "./routes/AdminDeviceStatus";
+import OperatorDashboard from "./components/dashboard/OperatorDashboard";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       </div>
     )
   },
+
   {
     path: "/login",
       element: <Login />
@@ -49,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: "/changePassword",
     element: <ChangePassword/>
+  },
+  {
+    path:"/operator",
+    element: <OperatorDashboard/>
   },
   {
     path: "/about",
