@@ -117,6 +117,8 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({ show, setShow, update
               <option value="ROLE_USER">Utilizator</option>
               <option value="ROLE_ADMIN">Admin</option>
               <option value="ROLE_GENERATOR">Generator</option>
+              <option value="ROLE_UAT">UAT</option>
+              <option value="ROLE_OPERATOR">Operator</option>
             </Form.Select>
           </Form.Group>
         </Form>
@@ -314,7 +316,7 @@ interface UserDisplayProps {
 const UserDisplay: React.FC<UserDisplayProps> = ({ user, setUpdateUser, setShowEditCard, setShowUpdateUser }) => {
   const [opened, setOpened] = useState<boolean>(false);
 
-  return (  
+  return (
     <div className={style.element}>
       <div
         className={style.principalInfo}
@@ -444,6 +446,8 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ show, setShow }) => {
             <option value="ROLE_USER">Utilizator</option>
             <option value="ROLE_ADMIN">Admin</option>
             <option value="ROLE_GENERATOR">Generator</option>
+            <option value="ROLE_OPERATOR">Operator</option>
+            <option value="ROLE_UAT">UAT</option>
           </Form.Select>
         </Form.Group>
       </Modal.Body>

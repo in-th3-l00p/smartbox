@@ -10,7 +10,7 @@ export interface Card {
   cardSlots: CardSlot[];
 }
 
-export type Authority = 'ROLE_USER' | 'ROLE_ADMIN' | 'ROLE_GENERATOR';
+export type Authority = 'ROLE_USER' | 'ROLE_ADMIN' | 'ROLE_GENERATOR' | 'ROLE_OPERATOR' | 'ROLE_UAT';
 export function getAuthorityText(authority: Authority) {
   switch (authority) {
     case 'ROLE_USER':
@@ -19,6 +19,10 @@ export function getAuthorityText(authority: Authority) {
       return 'Admin';
     case 'ROLE_GENERATOR':
       return 'Generator';
+    case 'ROLE_OPERATOR':
+      return 'Operator';
+    case 'ROLE_UAT':
+      return 'UAT';
   }
 }
 
